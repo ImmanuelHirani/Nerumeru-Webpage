@@ -62,12 +62,13 @@ if (isset($_POST["submit"])) {
                             <form class="w-full" action="" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="recommend_id" value="<?= $recommend["recommend_id"] ?>">
                                 <input type="hidden" name="gambarLama" value="<?= $recommend["recommend_img"] ?>">
+                                <input type="hidden" name="recommend_img" value="<?= $recommend["recommend_img"] ?>">
                                 <div class="grid grid-cols-2 gap-6">
                                     <div class="flex flex-col w-full gap-3">
                                         <div class="w-full flex flex-col gap-4  bg-white-neru rounded-md border-2 p-3">
-                                            <img src="img/<?= $recommend["recommend_img"] ?>" class="mx-auto w-fit" alt="">
+                                            <img id="previewImg" src="img/<?= $recommend["recommend_img"] ?>" class="mx-auto w-fit" alt="">
                                             <div class="flex flex-col gap-2.5 ">
-                                                <input type="file" name="gambar" value="<?= isset($recommend["recommend_img"]) ? $recommend["recommend_img"] : '' ?>" id="gambar" /><?php if (isset($recommend["recommend_img"])) : ?>
+                                                <input type="file" name="gambar" onchange="previewImage(event)" value="<?= isset($recommend["recommend_img"]) ? $recommend["recommend_img"] : '' ?>" id="gambar" /><?php if (isset($recommend["recommend_img"])) : ?>
                                                     <h6>File Terkini : <?= $recommend["recommend_img"] ?></h6>
                                                 <?php endif; ?>
                                             </div>
@@ -111,5 +112,18 @@ if (isset($_POST["submit"])) {
 <script src="js/button.js"></script>
 <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <script src="jsAdmin.js"></script>
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const img = document.getElementById('previewImg');
+            img.src = reader.result;
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>
 
 </html>

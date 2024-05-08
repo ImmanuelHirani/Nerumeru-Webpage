@@ -66,29 +66,55 @@ if (isset($_POST["submit"])) {
                 <div class="grid grid-cols-2 gap-6">
                   <div class="flex flex-col w-full gap-3">
                     <div class="w-full flex flex-col gap-4  bg-white-neru rounded-md border-2 p-3">
-                    <img id="previewImg" src="img/" onerror="this.src='https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled-1150x647.png'" class="mx-auto" alt="">
-                    <label for="">Product Img <span class="text-red-500 font-medium">(Note : 2 Type File input file & link img)</span> </label>
-                    <input required type="file" name="gambar" id="gambar" onchange="previewImage(event)">
+                      <img id="previewImg" src="img/" onerror="this.src='https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled-1150x647.png'" class="mx-auto" alt="">
+                      <label for="">Product Img <span class="text-red-500 font-medium">(Note : 2 Type File input file & link img)</span> </label>
+                      <input required type="file" name="gambar" id="gambar" onchange="previewImage(event)">
                     </div>
                     <label for="">Product Type</label>
                     <input required class="w-full p-2 outline-none border-2" value="<?= $type ?>" name="product_type" placeholder="Product Type" readonly type="text" />
-                    <label for="">Product Categories</label>
-                    <select class="w-full p-2 outline-none border-2" name="product_categories" id="status">
-                      <optgroup label="Bedding Categories">
-                        <option value="Neru One">Neru One</option>
-                        <option value="Neru Two">Neru Two</option>
-                      </optgroup>
-                    </select>
+                    <?php if ($type === "Bedding") : ?>
+                      <label for="">Product Categories</label>
+                      <select class="w-full p-2 outline-none border-2" name="product_categories" id="status">
+                        <optgroup label="Bedding Categories">
+                          <option value="Neru One">Neru One</option>
+                          <option value="Neru Two">Neru Two</option>
+                        </optgroup>
+                      </select>
+                    <?php endif; ?>
+                    <?php if ($type === "Toys") : ?>
+                      <label for="">Product Categories</label>
+                      <select class="w-full p-2 outline-none border-2" name="product_categories" id="status">
+                        <optgroup label="<?= $type ?> Categories">
+                          <option value="Neru Ring">Neru Ring</option>
+                          <option value="Neru Stick">Neru Stick</option>
+                          <option value="Neru Ball">Neru Ball</option>
+                        </optgroup>
+                      </select>
+                    <?php endif; ?>
                     <label for="">Product Name</label>
                     <input required class="w-full p-2 outline-none border-2" name="product_name" placeholder="Product Name" type="text" />
                   </div>
                   <div class="flex flex-col w-full gap-3">
                     <label for="">Product Stock</label>
-                    <input required class="w-full p-2 outline-none border-2" name="product_stock" placeholder="Product Stock" type="number" />
-                    <label for="">Product Color</label>
-                    <input required class="w-full p-2 outline-none border-2" name="product_color" placeholder="Product Color" type="text" />
+                    <input required class="w-full p-2 outline-none border-2" name="product_stock" placeholder="Product Stock" type="number" pattern="\d*" />
+                    <?php if ($type === "Bedding") : ?>
+                      <label for="">Product Color</label>
+                      <input required class="w-full p-2 outline-none border-2" name="product_color" placeholder="Product Color" type="text" />
+                    <?php endif; ?>
+                    <?php if ($type === "Toys") : ?>
+                      <label for="">Product Color</label>
+                      <input required class="w-full p-2 outline-none border-2" name="product_color" placeholder="Product Color" type="text" />
+                    <?php endif; ?>
+                    <?php if ($type === "Pillow") : ?>
+                      <label for="">Product Color</label>
+                      <input required class="w-full p-2 outline-none border-2" name="product_color" placeholder="Product Color" type="text" />
+                    <?php endif; ?>
+                    <?php if ($type === "Trolly") : ?>
+                      <label for="">Product Color</label>
+                      <input required class="w-full p-2 outline-none border-2" name="product_color" placeholder="Product Color" type="text" />
+                    <?php endif; ?>
                     <label for="">Product Price</label>
-                    <input required class="w-full p-2 outline-none border-2" name="product_price" placeholder="Product Price" type="text" />
+                    <input required class="w-full p-2 outline-none border-2" name="product_price" placeholder="Product Price" type="number" />
                     <label for="">Product Specification</label>
                     <textarea required class="p-2 outline-none border-2 text-start" name="product_specification" placeholder="Product Price" cols="30" rows="10"></textarea>
                     <label for="">Product Weight</label>
@@ -129,4 +155,5 @@ if (isset($_POST["submit"])) {
     reader.readAsDataURL(input.files[0]);
   }
 </script>
+
 </html>

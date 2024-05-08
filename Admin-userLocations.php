@@ -34,7 +34,6 @@ $Users = query("SELECT * FROM user_locations INNER JOIN user ON user_locations.u
                 <div class="flex flex-col gap-4 container">
                     <?php include "layout/header-admin.php"; ?>
                     <div class="max-h-screen w-full overflow-y-auto">
-
                         <div id="UserData" class="container BoxTableData bg-white rounded-lg shadow-md 3xl:h-fit 2xl:h-fit overflow-y-auto mt-4">
                             <a href="Admin-Customer.php" class="flex items-center gap-3 mb-3">
                                 <Span class="bg-blue-Neru w-10 h-10  flex items-center justify-center rounded-full text-white text-xl">

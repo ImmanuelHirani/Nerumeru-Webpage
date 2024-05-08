@@ -17,9 +17,24 @@
   include "layout/navbar.php";
 
   $product_id = $_GET["product_id"];
+
   $product_details = query("SELECT * FROM product WHERE product_id = '$product_id' ")[0];
-  $productMultiImg = query("SELECT * FROM other_product_img WHERE product_id = '$product_id' AND status_multiImg = '1' ")[0];
+  $productMultiImg = query("SELECT * FROM other_product_img WHERE product_id = '$product_id' AND status_multiImg = '1' ");
+
+  if ($productMultiImg && count($productMultiImg) > 0) {
+    // Jika ada baris yang dikembalikan oleh kueri
+    $multiImage = $productMultiImg[0];
+    // Lakukan sesuatu dengan $firstImage
+  } else {
+    // Jika tidak ada baris yang dikembalikan oleh kueri
+    // Tidak ada gambar multi
+  }
+
+
   $other_product = query("SELECT * FROM product WHERE status = 1; ");
+
+
+
 
   ?>
   <main>
@@ -37,35 +52,36 @@
             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                  <img src="img/<?= $product_details["product_img"] ?>" onerror="this.src='img/Onerror/onigiri 3.jpg'" class="w-full 3xl:h-[650px] 2xl:h-[530px] xl:h-[480px] lg:h-[430px] md:h-[300px] h-[300px] object-contain bg-white  shadow-md" alt="" />
+                  <img src="img/<?= $product_details["product_img"] ?>" class="w-full 3xl:h-[650px] 2xl:h-[530px] xl:h-[480px] lg:h-[430px] md:h-[300px] h-[300px] object-contain bg-white shadow-md" alt="" />
                 </div>
-                <div class="swiper-slide">
-                  <img src="img/<?= $productMultiImg["product_img_1"] ?>" onerror="this.src='img/Onerror/onigiri 3.jpg'" class="w-full 3xl:h-[650px] 2xl:h-[530px] xl:h-[480px] lg:h-[430px] md:h-[300px] h-[300px] object-contain bg-white  shadow-md" alt="" />
-                </div>
-                <div class="swiper-slide">
-                  <img src="img/<?= $productMultiImg["product_img_2"] ?>" onerror="this.src='img/Onerror/onigiri 3.jpg'" class="w-full 3xl:h-[650px] 2xl:h-[530px] xl:h-[480px] lg:h-[430px] md:h-[300px] h-[300px] object-contain bg-white  shadow-md" alt="" />
-                </div>
-                <div class="swiper-slide">
-                  <img src="img/<?= $productMultiImg["product_img_3"] ?>" onerror="this.src='img/Onerror/onigiri 3.jpg'" class="w-full 3xl:h-[650px] 2xl:h-[530px] xl:h-[480px] lg:h-[430px] md:h-[300px] h-[300px] object-contain bg-white  shadow-md" alt="" />
+                <?php
+                for ($i = 1; $i <= 3; $i++) {
+                  $image_key = "product_img_$i";
+                  $img_src = isset($multiImage[$image_key]) ? "img/{$multiImage[$image_key]}" : "img/Onerror/onigiri 3.jpg";
+                ?>
+                  <div class="swiper-slide">
+                    <img src="<?= $img_src ?>" class="w-full 3xl:h-[650px] 2xl:h-[530px] xl:h-[480px] lg:h-[430px] md:h-[300px] h-[300px] object-contain bg-white shadow-md" alt="" />
+                  </div>
+                <?php } ?>
+              </div>
+              <div thumbsSlider="" class="swiper mySwiper mt-2">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <img src="img/<?= $product_details["product_img"] ?>" class="cursor-pointer w-full object-contain 3xl:h-[160px] 2xl:h-[130px] xl:h-[120px] h-[75px] shadow-md  bg-white" alt="" />
+                  </div>
+                  <?php
+                  for ($i = 1; $i <= 3; $i++) {
+                    $image_key = "product_img_$i";
+                    $img_src = isset($multiImage[$image_key]) ? "img/{$multiImage[$image_key]}" : "img/Onerror/onigiri 3.jpg";
+                  ?>
+                    <div class="swiper-slide">
+                      <img src="<?= $img_src ?>" class="cursor-pointer w-full object-contain 3xl:h-[160px] 2xl:h-[130px] xl:h-[120px] h-[75px] shadow-md  bg-white" alt="" />
+                    </div>
+                  <?php } ?>
                 </div>
               </div>
             </div>
-            <div thumbsSlider="" class="swiper mySwiper mt-2">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <img src="img/<?= $product_details["product_img"] ?>" onerror="this.src='img/Onerror/onigiri 3.jpg'" class="cursor-pointer w-full object-contain 3xl:h-[160px] 2xl:h-[130px] xl:h-[120px] h-[75px] shadow-md  bg-white" alt="" />
-                </div>
-                <div class="swiper-slide">
-                  <img src="img/<?= $productMultiImg["product_img_1"] ?>" onerror="this.src='img/Onerror/onigiri 3.jpg'" class="cursor-pointer w-full object-contain 3xl:h-[160px] 2xl:h-[130px] xl:h-[120px] h-[75px] shadow-md  bg-white" alt="" />
-                </div>
-                <div class="swiper-slide">
-                  <img src="img/<?= $productMultiImg["product_img_2"] ?>" onerror="this.src='img/Onerror/onigiri 3.jpg'" class="cursor-pointer w-full object-contain 3xl:h-[160px] 2xl:h-[130px] xl:h-[120px] h-[75px] shadow-md  bg-white" alt="" />
-                </div>
-                <div class="swiper-slide">
-                  <img src="img/<?= $productMultiImg["product_img_3"] ?>" onerror="this.src='img/Onerror/onigiri 3.jpg'" class="cursor-pointer w-full object-contain 3xl:h-[160px] 2xl:h-[130px] xl:h-[120px] h-[75px]" alt="" />
-                </div>
-              </div>
-            </div>
+
           </div>
           <div class="right-content col-span-4">
             <div class="wrapper flex flex-col gap-4">
@@ -80,47 +96,131 @@
               <h6>Rp.<?= number_format($product_details["product_price"], 0, ',', ',') ?></h6>
               <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">Stock <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]"><?= $product_details["product_stock"] ?></span></h6>
               <h6 class="flex gap-3">Weight <span><?= $product_details["product_weight"] ?></span></h6>
-              <hr />
-              <h6 class="flex justify-between">Sub Total <span id="subtotal" class="font-semibold">Rp <?= number_format($product_details["product_price"], 0, ',', ',') ?></span></h6>
-              <hr />
-              <div class="quantity flex md:gap-3 gap-1.5">
-                <span id="qty" class="flex gap-2">
-                  <button id="decrement" class="bg-blue-Neru w-10 text-white h-10 flex items-center justify-center rounded-sm lg:text-base text-sm">-</button>
-                  <input id="quantity" type="number" class="current-page w-10 h-10 text-center py-1 bg-white shadow-lg md:text-2xl text-sm outline-none border-blue-Neru border-[1px]" min="0" max="5" value="1" />
-                  <button id="increment" class="bg-blue-Neru w-10 text-white h-10 flex items-center justify-center rounded-sm lg:text-base text-sm">+</button>
-                </span>
-                <button id="addToCart" class="bg-blue-Neru w-full rounded-sm py-2 md:px-4 px-2 text-white lg:text-base text-sm flex gap-4 items-center justify-center">Tambah Ke keranjang</button>
+              <form action="" method="POST">
+                <div class="quantity flex md:gap-3 gap-1.5">
+                  <?php if (!isset($_SESSION["user_id"])) : ?>
+                    <span id="qty" class="flex gap-2">
+                      <button disabled id="decrement" class="bg-blue-Neru bg-opacity-50 w-10 text-white h-10 flex items-center justify-center rounded-sm lg:text-base text-sm">-</button>
+                      <input disabled id="quantity" type="number" class="current-page w-10 h-10 bg-opacity-50 text-opacity-50 text-center py-1 bg-white shadow-lg md:text-2xl text-sm outline-none border-blue-Neru border-[1px]" min="0" max="5" value="1" />
+                      <button disabled id="increment" class="bg-blue-Neru bg-opacity-50 w-10 text-white h-10 flex items-center justify-center rounded-sm lg:text-base text-sm">+</button>
+                    </span>
+                    <button id="addToCart" disabled class="bg-blue-Neru bg-opacity-50 w-full rounded-sm py-2 md:px-4 px-2 text-white lg:text-base text-sm flex gap-4 items-center justify-center">Tambah Ke keranjang</button>
+                  <?php else : ?>
+                    <?php
+
+
+                    // Initialize array to store transactions
+                    if (!isset($_SESSION['cart'])) {
+                      $_SESSION['cart'] = array();
+                    }
+
+                    // Check if form has been submitted and user is logged in
+                    if (isset($_POST['submit']) && isset($_SESSION['user_id'])) {
+                      // You need to set this from your form
+                      $product_id = $_GET['product_id'];
+
+                      // Query to get product information
+                      $showAddedItem = query("SELECT * FROM product WHERE product_id = $product_id");
+
+                      // Ensure product is found
+                      if ($showAddedItem) {
+                        $product = $showAddedItem[0];
+
+                        // Get product information from query result
+                        $product_name = $product['product_name'];
+                        $product_price = $product['product_price'];
+                        $product_quantity = $_POST['quantity_item'];
+
+                        // Check if product is already in the cart
+                        $product_exists = false;
+                        foreach ($_SESSION['cart'] as &$item) {
+                          if ($item['product_id'] == $product_id) {
+                            $product_exists = true;
+                            // Set product quantity to the new value
+                            $item['product_quantity'] = $product_quantity;
+                            // Recalculate subtotal
+                            $item['product_subtotal'] = $product_price * $product_quantity;
+                            // Success message
+                            $_SESSION['success_code'] = "success";
+                            break;
+                          }
+                        }
+
+                        // If product is not in the cart, add it
+                        if (!$product_exists) {
+                          // Check if product quantity exceeds 5
+                          if ($product_quantity <= 5) {
+                            // Calculate subtotal
+                            $product_subtotal = $product_price * $product_quantity;
+
+                            // Add product information to transaction array
+                            $transaction_info = array(
+                              'product_id' => $product_id,
+                              'product_name' => $product_name,
+                              'product_price' => $product_price,
+                              'product_quantity' => $product_quantity,
+                              'product_subtotal' => $product_subtotal
+                            );
+
+                            // Add transaction to cart
+                            $_SESSION['cart'][] = $transaction_info;
+
+                            // Success message
+                            $_SESSION['success_code'] = "success";
+                          } else {
+                            // Error message if product quantity exceeds 5
+                            echo "<script>alert('Anda tidak dapat menambahkan lebih dari 5 produk dalam satu kali transaksi.');</script>";
+                          }
+                        }
+                      } else {
+                        // Error message if product is not found
+                        $_SESSION['error_message'] = "Produk tidak ditemukan.";
+                      }
+                    }
+
+                    // Display array contents
+                    var_dump($_SESSION['cart']);
+                    ?>
+
+
+                    <span id="qty" class="flex gap-2">
+                      <span id="decrement" class="cursor-pointer bg-blue-Neru w-10 text-white h-10 flex items-center justify-center rounded-sm lg:text-base text-sm">-</span>
+                      <input id="quantity" name="quantity_item" type="number" class="current-page w-10 h-10 text-center py-1 bg-white shadow-lg md:text-2xl text-sm outline-none border-blue-Neru border-[1px]" min="0" max="5" value="1" />
+                      <span id="increment" class="cursor-pointer bg-blue-Neru w-10 text-white h-10 flex items-center justify-center rounded-sm lg:text-base text-sm">+</span>
+                    </span>
+                    <button type="submit" name="submit" id="addToCart" class="bg-blue-Neru w-full rounded-sm py-2 md:px-4 px-2 text-white lg:text-base text-sm flex gap-4 items-center justify-center">Tambah Ke keranjang</button>
+              </form>
+            <?php endif; ?>
+            </div>
+          </div>
+          <div class="flex flex-col gap-0.5">
+            <div class="accordion-wrapper mt-5">
+              <div class="accordion-header cursor-pointer flex justify-between items-center bg-blue-Neru text-white px-4 lg:py-4 py-3 relative">
+                <h3 class="font-medium lg:text-lg text-sm">PRODUCT SPECIFICATIONS</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down md:w-7 w-4" viewBox="0 0 24 24" fill="white">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M6 10l6 6l6 -6h-12"></path>
+                </svg>
+              </div>
+              <div class="accordion-body bg-white shadow-sm">
+                <div class="content-wrapper p-4">
+                  <span class="md:text-base text-sm">
+                    <?= $product_details["product_specification"] ?>
+                  </span>
+                </div>
               </div>
             </div>
-            <div class="flex flex-col gap-0.5">
-              <div class="accordion-wrapper mt-5">
-                <div class="accordion-header cursor-pointer flex justify-between items-center bg-blue-Neru text-white px-4 lg:py-4 py-3 relative">
-                  <h3 class="font-medium lg:text-lg text-sm">PRODUCT SPECIFICATIONS</h3>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down md:w-7 w-4" viewBox="0 0 24 24" fill="white">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M6 10l6 6l6 -6h-12"></path>
-                  </svg>
-                </div>
-                <div class="accordion-body bg-white shadow-sm">
-                  <div class="content-wrapper p-4">
-                    <span class="md:text-base text-sm">
-                      <?= $product_details["product_specification"] ?>
-                    </span>
-                  </div>
-                </div>
+            <div class="accordion-wrapper">
+              <div class="accordion-header cursor-pointer flex justify-between items-center bg-blue-Neru text-white px-4 lg:py-4 py-3 relative">
+                <h3 class="font-medium lg:text-lg text-sm">WARRANTY</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down md:w-7 w-4" viewBox="0 0 24 24" fill="white">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M6 10l6 6l6 -6h-12"></path>
+                </svg>
               </div>
-              <div class="accordion-wrapper">
-                <div class="accordion-header cursor-pointer flex justify-between items-center bg-blue-Neru text-white px-4 lg:py-4 py-3 relative">
-                  <h3 class="font-medium lg:text-lg text-sm">WARRANTY</h3>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down md:w-7 w-4" viewBox="0 0 24 24" fill="white">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M6 10l6 6l6 -6h-12"></path>
-                  </svg>
-                </div>
-                <div class="accordion-body bg-white shadow-sm">
-                  <div class="content-wrapper p-4">
-                    <span class="md:text-base text-sm"> <?= $product_details["product_warranty"] ?></span>
-                  </div>
+              <div class="accordion-body bg-white shadow-sm">
+                <div class="content-wrapper p-4">
+                  <span class="md:text-base text-sm"> <?= $product_details["product_warranty"] ?></span>
                 </div>
               </div>
             </div>
@@ -210,10 +310,20 @@
     <section class="addToCartSuccesfull">
       <div id="SuccesAddtoCart" class="container fixed top-10 z-10 transition-all ease-in-out duration-500 invisible opacity-0 flex right-1/2 w-fit translate-x-1/2">
         <div class="p-3 bg-white border-[1px] text-black border-blue-Neru text-center w-96 rounded-md flex flex-col gap-3">
-          <h6>Neru One - Silver Grey</h6>
-          <h6>Total Quantity : X1</h6>
-          <h6 class="text-green-500">Berhasil Di tambahkan</h6>
+          <?php
+          if (isset($_SESSION["cart"])) {
+            // Ambil data terakhir dari keranjang
+            $lastTransaction = end($_SESSION["cart"]);
+            // Menampilkan informasi produk terakhir yang ditambahkan
+            $product_name = $lastTransaction["product_name"];
+            $product_quantity = $lastTransaction["product_quantity"];
+          ?>
+            <h6><?= $product_name ?></h6>
+            <h6>Total Quantity : <?= $product_quantity ?></h6>
+            <h6 class="text-green-500">Berhasil Ditambahkan</h6>
+          <?php } ?>
         </div>
+
       </div>
     </section>
   </main>
@@ -231,75 +341,52 @@
   const addToCartToggler = document.getElementById("addToCart");
   const SuccesAddtoCartBox = document.getElementById("SuccesAddtoCart");
 
-  addToCartToggler.addEventListener("click", () => {
+  // Periksa apakah $_SESSION['success_code'] diatur, jika ya, tampilkan kotak sukses
+  <?php if (isset($_SESSION['success_code']) && $_SESSION['success_code'] === "success") { ?>
     SuccesAddtoCartBox.classList.add("BoxSuccesActiveCart");
-
-    // Menghilangkan kotak sukses setelah 2 detik
+    // Hapus $_SESSION['success_code'] setelah kotak sukses ditampilkan
+    <?php unset($_SESSION['success_code']); ?>
+    // Hapus kotak sukses setelah 2 detik
     setTimeout(() => {
       SuccesAddtoCartBox.classList.remove("BoxSuccesActiveCart");
-    }, 2000); // 3000 milidetik = 3 detik
-  });
+    }, 2000);
+  <?php } ?>
 </script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Mengambil elemen-elemen yang diperlukan
-    const decrementBtn = document.getElementById('decrement');
-    const incrementBtn = document.getElementById('increment');
-    const quantityInput = document.getElementById('quantity');
-    const subtotalElement = document.getElementById('subtotal');
-    const productPrice = <?= $product_details["product_price"] ?>; // Harga produk
-    const maxItems = 5;
+  // Get the input element and the decrement and increment buttons
+  var quantityInput = document.getElementById("quantity");
+  var decrementButton = document.getElementById("decrement");
+  var incrementButton = document.getElementById("increment");
 
-    // Fungsi untuk mengupdate subtotal
-    function updateSubtotal() {
-      const quantity = parseInt(quantityInput.value);
-      const subtotal = productPrice * quantity;
-      subtotalElement.textContent = 'Rp ' + subtotal.toLocaleString();
-    }
-
-    // Event listener untuk tombol decrement
-    decrementBtn.addEventListener('click', function() {
-      let currentValue = parseInt(quantityInput.value);
-      if (currentValue > 1) {
-        currentValue--;
-        quantityInput.value = currentValue;
-        updateSubtotal();
-      }
-    });
-
-    // Event listener untuk tombol increment
-    incrementBtn.addEventListener('click', function() {
-      let currentValue = parseInt(quantityInput.value);
-      if (currentValue < maxItems) {
-        currentValue++;
-        quantityInput.value = currentValue;
-        updateSubtotal();
-      } else {
-        alert('Max 5 items.');
-      }
-    });
-
-    // Event listener untuk perubahan nilai input kuantitas
-    quantityInput.addEventListener('change', function() {
-      let newValue = parseInt(quantityInput.value);
-      if (newValue < 1 || isNaN(newValue)) {
-        quantityInput.value = 1;
-      } else if (newValue > maxItems) {
-        quantityInput.value = maxItems;
-        alert('Max 5 items.');
-      }
-      updateSubtotal();
-    });
-
-    // Event listener untuk menambahkan ke keranjang
-    document.getElementById('addToCart').addEventListener('click', function() {
-      const quantity = parseInt(quantityInput.value);
-      const subtotal = productPrice * quantity;
-      // Lakukan apa pun yang diperlukan untuk menambahkan ke keranjang di sini
-      console.log('Tambah ke keranjang: ' + quantity + ' item');
-    });
+  // Add click event listeners to the decrement and increment buttons
+  decrementButton.addEventListener("click", function() {
+    decrementQuantity();
   });
+
+  incrementButton.addEventListener("click", function() {
+    incrementQuantity();
+  });
+
+  // Function to decrement the quantity
+  function decrementQuantity() {
+    var currentValue = parseInt(quantityInput.value);
+    if (currentValue > 0) {
+      quantityInput.value = currentValue - 1;
+    }
+  }
+
+  // Function to increment the quantity
+  function incrementQuantity() {
+    var currentValue = parseInt(quantityInput.value);
+    var maxValue = parseInt(quantityInput.getAttribute("max"));
+    if (currentValue < maxValue) {
+      quantityInput.value = currentValue + 1;
+    }
+  }
 </script>
+
+
 
 
 </html>

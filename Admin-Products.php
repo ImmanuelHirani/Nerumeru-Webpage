@@ -88,9 +88,9 @@ $trolly = query("SELECT * FROM trolly");
                       <td class="3xl:w-44 w-36">
                         <img src="img/<?= $bedding["product_img"] ?>" class="w-[80%] object-contain mx-auto preview-img-toggle cursor-pointer" alt="" />
                         <div class="mt-3 mb-1">
-                        <a href="Admin-Multi-Img.php?product_id=<?= $bedding["product_id"] ?>" class="bg-blue-Neru w-fit 3xl:px-6 px-4 py-2 rounded-lg 3xl:text-sm text-xs text-white font-semibold">Multi Preview</a>
+                          <a href="Admin-Multi-Img.php?product_id=<?= $bedding["product_id"] ?>" class="bg-blue-Neru w-fit 3xl:px-6 px-4 py-2 rounded-lg 3xl:text-sm text-xs text-white font-semibold">Multi Preview</a>
                         </div>
-                     
+
                       </td>
                       <td class="3xl:w-14 w-8  text-justify"><?= $bedding["product_name"] ?></td>
 
@@ -108,7 +108,7 @@ $trolly = query("SELECT * FROM trolly");
                       </td>
                       <td>
                         <span class="flex items-center gap-2 justify-center">
-                          <a href="Admin-products-UpdateData.php?product_id=<?= $bedding["product_id"] ?>" class="text-white rounded-full px-2 py-1 bg-green-500 3xl:text-2xl text-base cursor-pointer"><i class="ti ti-pencil"></i></a>
+                          <a href="Admin-products-UpdateData.php?product_id=<?= $bedding["product_id"] ?>&type=Bedding" class="text-white rounded-full px-2 py-1 bg-green-500 3xl:text-2xl text-base cursor-pointer"><i class="ti ti-pencil"></i></a>
                           <a onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" href="hapus.php?product_id=<?= $bedding["product_id"] ?>" class="HapusDataToggler text-white bg-red-500 px-2 py-1 rounded-full 3xl:text-2xl text-base cursor-pointer "><i class="ti ti-trash"></i></a>
                         </span>
                       </td>
@@ -133,7 +133,6 @@ $trolly = query("SELECT * FROM trolly");
                     <th class="border-[1px] border-black-neru border-opacity-30">ID</th>
                     <th class="border-[1px] border-black-neru border-opacity-30">Image</th>
                     <th class="border-[1px] border-black-neru border-opacity-30 w-32">Name</th>
-
                     <th class="border-[1px] border-black-neru border-opacity-30">Stock</th>
                     <th class="border-[1px] border-black-neru border-opacity-30">Inserted On</th>
                     <th class="border-[1px] border-black-neru border-opacity-30">Last Updated</th>
@@ -151,7 +150,6 @@ $trolly = query("SELECT * FROM trolly");
                       <td class="w-14"><?= $toys["product_id"] ?></td>
                       <td class="3xl:w-44 w-28"><img src="img/<?= $toys["product_img"] ?>" class="w-[80%] object-contain mx-auto  preview-img-toggle cursor-pointer" alt="" /></td>
                       <td class="3xl:w-24 w-12  text-justify"><?= $toys["product_name"] ?></td>
-
                       <td class="w-14"><?= $toys["product_stock"] ?></td>
                       <td><?= $toys["insert_date"] ?></td>
                       <td><?= $toys["lastUpdate_date"] ?></td>
@@ -166,7 +164,7 @@ $trolly = query("SELECT * FROM trolly");
                       </td>
                       <td>
                         <span class="flex items-center gap-2 justify-center">
-                          <a href="Admin-products-UpdateData.php?product_id=<?= $toys["product_id"] ?>" class="text-white rounded-full px-2 py-1 bg-green-500 3xl:text-2xl text-base cursor-pointer"><i class="ti ti-pencil"></i></a>
+                          <a href="Admin-products-UpdateData.php?product_id=<?= $toys["product_id"] ?>&type=Toys" class="text-white rounded-full px-2 py-1 bg-green-500 3xl:text-2xl text-base cursor-pointer"><i class="ti ti-pencil"></i></a>
                           <a onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" href="hapus.php?product_id=<?= $toys["product_id"] ?>" class="HapusDataToggler text-white bg-red-500 px-2 py-1 rounded-full 3xl:text-2xl text-base cursor-pointer "><i class="ti ti-trash"></i></a>
                         </span>
                       </td>

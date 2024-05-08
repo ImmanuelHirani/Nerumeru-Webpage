@@ -62,6 +62,7 @@ if (isset($_POST["submit"])) {
               <form class="w-full" action="" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="whyus_id" value="<?= $whyus["whyus_id"] ?>">
                 <input type="hidden" name="gambarLama" value="<?= $whyus["whyus_img"] ?>">
+                <input type="hidden" name="whyus_img" value="<?= $whyus["whyus_img"] ?>">
                 <div class="grid grid-cols-2 gap-6">
                   <div class="flex flex-col w-full gap-2.5">
                     <div class="w-full flex flex-col gap-4  bg-white-neru rounded-md border-2 p-3">

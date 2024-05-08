@@ -62,6 +62,7 @@ if (isset($_POST["submit"])) {
                             <form class="w-full" action="" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="event_id" value="<?= $event["event_id"] ?>">
                                 <input type="hidden" name="gambarLama" value="<?= $event["event_img"] ?>">
+                                <input type="hidden" name="event_img" value="<?= $event["event_img"] ?>">
                                 <div class="grid grid-cols-2 gap-6">
                                     <div class="flex flex-col w-full gap-3">
                                         <div class="w-full flex flex-col gap-4  bg-white-neru rounded-md border-2 p-3">

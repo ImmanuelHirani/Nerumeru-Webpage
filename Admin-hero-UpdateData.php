@@ -63,10 +63,11 @@ if (isset($_POST["submit"])) {
                   <div class="flex flex-col w-full gap-2.5">
                     <input type="hidden" name="hero_id" value="<?= $nerumeru["hero_id"] ?>">
                     <input type="hidden" name="gambarLama" value="<?= $nerumeru["hero_img"] ?>">
+                    <input type="hidden" name="hero_img" value="<?= $nerumeru["hero_img"] ?>">
                     <div class="w-full flex flex-col gap-4  bg-white-neru rounded-md border-2 p-3">
                       <img id="previewImg" src="img/<?= $nerumeru["hero_img"] ?>" onerror="this.src='https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled-1150x647.png'" class="mx-auto" alt="">
                       <div class="flex flex-col gap-2.5">
-                        <input required type="file" name="gambar" id="gambar" onchange="previewImage(event)">
+                        <input type="file" name="gambar" id="gambar" onchange="previewImage(event)">
                         <span>File terkini: <?= $nerumeru["hero_img"] ?></span>
                       </div>
                     </div>

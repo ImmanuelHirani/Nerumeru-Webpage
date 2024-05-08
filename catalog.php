@@ -217,501 +217,54 @@
       </div>
       <div class="container flex flex-col gap-6 md:p-4 p-2 mt-6" id="StoreItem">
         <div class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 grid-cols-2 md:gap-2.5 gap-1.5">
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
+          <?php $CatalogProduct = query("SELECT * FROM product WHERE status = 1; "); ?>
+          <?php foreach ($CatalogProduct as $product) : ?>
+            <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
+              <img src="img/<?= $product['product_img'] ?>" onclick="window.location.href ='detail-product.php?product_id=<?= $product['product_id'] ?>';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-contain  cursor-pointer rounded-md w-full" alt="" />
+              <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
+                <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px] line-clamp-2"><?= $product['product_name'] ?></h6>
+                <span class="flex justify-between items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
+                    <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
+                    <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
+                    <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
+                    <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
+                    <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
+                  </svg>
+                  <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
+                    Stock
+                    <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]"><?= $product['product_stock'] ?></span>
+                  </h6>
                 </span>
-              </h6>
-            </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
+                <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
+                  <span>Rp.<?= number_format($product['product_price'], 0, ',', ',') ?></span>
+                  <span class="relative">
+                    <a class="cursor-pointer group">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                        <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                        <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                        <path d="M8.7 10.7l6.6 -3.4"></path>
+                        <path d="M8.7 13.3l6.6 3.4"></path>
+                      </svg>
+                    </a>
+                    <a href="copylink.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
+                        <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
+                      </svg>
+                    </a>
+                  </span>
                 </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
+              </div>
             </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
-            </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
-            </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
-            </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
-            </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
-            </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
-            </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
-            </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
-            </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
-            </div>
-          </div>
-          <div class="h-fit card-wrapper shadow-lg flex flex-col w-full gap-3 bg-white rounded-md transition-all ease-in-out duration-300">
-            <img src="img/card-item-2.png" onclick="window.location.href ='detail-product.php';" class="3xl:h-[370px] 2xl:h-[308px] md:h-[265px] rounded-b-none h-[170px] object-fill cursor-pointer rounded-md w-full" alt="" />
-            <div class="card-body md:py-3 lg:h-40 md:h-36 h-[120px] py-2 3xl:px-6 2xl:px-4 xl:px-3 md:px-3.5 px-1.5 flex flex-col md:gap-2 gap-1">
-              <h6 class="font-medium flex flex-col lg:text-lg md:text-base text-[11px]">Neru Pettie - Orthopendic Neru Pettie - Orthopendic</h6>
-              <span class="flex justify-between items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
-                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
-                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
-                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
-                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
-                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
-                </svg>
-                <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">
-                  Stock
-                  <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">26</span>
-                </h6>
-              </span>
-              <h6 class="flex justify-between items-center mt-2 font-medium lg:text-lg md:text-sm text-[11px]">
-                Rp2.350,000
-                <span class="relative">
-                  <a class="cursor-pointer group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="shareToggle bg-blue-Neru p-1.5 transition-all ease-in-out duration-300 rounded-full lg:w-7 md:w-6 w-[22px] text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                      <path d="M8.7 10.7l6.6 -3.4"></path>
-                      <path d="M8.7 13.3l6.6 3.4"></path>
-                    </svg>
-                  </a>
-                  <a href="copylink.html">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="waShare absolute top-0 lg:w-7 md:w-6 w-[22px] bg-blue-Neru rounded-full transition-all ease-in-out duration-300 -z-10 text-white p-1.5 left-0" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path>
-                      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path>
-                    </svg>
-                  </a>
-                </span>
-              </h6>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
         <div class="pagination flex gap-2.5 justify-end">
-          <span onclick="showPreviousPage(); myFunction();" class="prev-button md:w-12 w-8 bg-blue-Neru text-center py-1 md:text-2xl text-sm rounded-lg text-white shadow-lg cursor-pointer"><</span>
+          <span onclick="showPreviousPage(); myFunction();" class="prev-button md:w-12 w-8 bg-blue-Neru text-center py-1 md:text-2xl text-sm rounded-lg text-white shadow-lg cursor-pointer">
+            < </span>
               <input type="number" class="current-page md:w-12 w-8 text-center py-1 bg-white shadow-lg md:text-2xl text-sm rounded-lg outline outline-1" min="0" max="9" value="1">
               <span onclick="showNextPage();  myFunction();" class="next-button md:w-12 w-8 text-center bg-blue-Neru py-1 md:text-2xl text-sm rounded-lg text-white shadow-lg cursor-pointer">></span>
         </div>

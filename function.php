@@ -236,7 +236,7 @@ function updateProductRecom($data)
     $recommend_img = htmlspecialchars($data["recommend_img"]);
     $recommend_imgLama = htmlspecialchars($data["gambarLama"]);
     $recommend_link = htmlspecialchars($data["recommend_targetLink"]);
-    if ($_FILES['gambar']['error'] === 4) {
+    if (!isset($_FILES['gambar']) || $_FILES['gambar']['error'] === 4) {
         $recommend_img = $recommend_imgLama;
     } else {
         $recommend_img = upload('gambar');
@@ -563,11 +563,11 @@ function insertProduct($data)
 
     $product_type = htmlspecialchars($data["product_type"]);
     $product_name = htmlspecialchars($data["product_name"]);
+    $product_categories = htmlspecialchars($data["product_categories"]);
     $product_stock = htmlspecialchars($data["product_stock"]);
     $product_color = htmlspecialchars($data["product_color"]);
     $product_price = htmlspecialchars($data["product_price"]);
     $product_specification = htmlspecialchars($data["product_specification"]);
-    $product_categories = htmlspecialchars($data["product_categories"]);
     $product_weight = htmlspecialchars($data["product_weight"]);
     $product_warranty = htmlspecialchars($data["product_warranty"]);
     $product_rating = htmlspecialchars($data["product_rating"]);
@@ -580,11 +580,11 @@ function insertProduct($data)
         '$product_img',
         '$product_type',
         '$product_name',
+        '$product_categories',
         '$product_stock',
         '$product_color',
         '$product_price',
         '$product_specification',
-        '$product_categories',
         '$product_weight',
         '$product_warranty',
         '$product_rating',

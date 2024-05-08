@@ -212,6 +212,7 @@
                   <form action="" method="post" class="lg:grid grid-cols-6 flex flex-col-reverse gap-12 lg:py-0 py-6 mt-6" enctype="multipart/form-data">
                     <input type="hidden" value="<?= $userData["user_id"] ?>">
                     <input type="hidden" name="gambarLama" value="<?= $userData["user_img"] ?>">
+                    <input type="hidden" name="user_img" value="<?= $userData["user_img"] ?>">
                     <div class="flex flex-col gap-4 w-full col-span-4">
                       <div class="flex md:flex-row lg:items-center flex-col md:gap-6 gap-4">
                         <label class="md:w-28 w-24">

@@ -2,6 +2,13 @@
 
 require "function.php";
 
+if (!isset($_GET['type']) || !in_array($_GET['type'], ["Bedding", "Toys", "Sanitize", "Pillow", "Trolly"])) {
+  echo "<script>document.location.href = 'Admin-Products.php';</script>";
+  // exit;
+} else {
+  $type = $_GET['type'];
+}
+
 
 $id = $_GET['product_id'];
 
@@ -63,6 +70,7 @@ if (isset($_POST["submit"])) {
                   <div class="flex flex-col w-full gap-3">
                     <input type="hidden" name="product_id" value="<?= $nerumeru["product_id"] ?>">
                     <input type="hidden" name="gambarLama" value="<?= $nerumeru["product_img"] ?>">
+                    <input type="hidden" name="product_img" value="<?= $nerumeru["product_img"] ?>">
                     <div class="w-full flex flex-col gap-4  bg-white-neru rounded-md border-2 p-3">
                       <img id="previewImg" src="img/<?= $nerumeru["product_img"] ?>" onerror="this.src='https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled-1150x647.png'" class="mx-auto" alt="">
                       <label for="">Product Img <span class="text-red-500 font-medium">(Note : 2 Type File input file & link img)</span> </label>
@@ -70,13 +78,26 @@ if (isset($_POST["submit"])) {
                     </div>
                     <label for="">Product Type</label>
                     <input class="w-full p-2 outline-none border-2" value="<?= $nerumeru["product_type"] ?>" name="product_type" placeholder="Product Type" type="text" />
-                    <label for="">Product Categories</label>
-                    <select class="w-full p-2 outline-none border-2" name="product_categories" id="categories">
-                      <optgroup label="Bedding Categories">
-                        <option value="Neru One">Neru One</option>
-                        <option value="Neru Two">Neru Two</option>
-                      </optgroup>
-                    </select>
+                    <?php if ($type === "Bedding") : ?>
+                      <label for="">Product Categories</label>
+                      <select class="w-full p-2 outline-none border-2" name="product_categories" id="status">
+                        <optgroup label="Bedding Categories">
+                          <option value="Neru One">Neru One</option>
+                          <option value="Neru Two">Neru Two</option>
+                        </optgroup>
+                      </select>
+                    <?php endif; ?>
+                    <?php if ($type === "Toys") : ?>
+                      <label for="">Product Categories</label>
+                      <select class="w-full p-2 outline-none border-2" name="product_categories" id="status">
+                        <optgroup label="<?= $type ?> Categories">
+                          <option value="Neru Ring" disabled>Recently Categories - (<?= $nerumeru["product_categories"] ?>)</option>
+                        </optgroup>
+                        <option value="Neru Ring">Neru Ring</option>
+                        <option value="Neru Stick">Neru Stick</option>
+                        <option value="Neru Ball">Neru Ball</option>
+                      </select>
+                    <?php endif; ?>
                     <label for="">Product Name</label>
                     <input class="w-full p-2 outline-none border-2" value="<?= $nerumeru["product_name"] ?>" name="product_name" placeholder="Product Name" type="text" />
                   </div>
