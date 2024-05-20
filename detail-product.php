@@ -29,30 +29,24 @@
     // Jika tidak ada baris yang dikembalikan oleh kueri
     // Tidak ada gambar multi
   }
-
-
   $other_product = query("SELECT * FROM product WHERE status = 1; ");
-
-
-
-
   ?>
   <main>
     <section class="product-details md:mt-32">
       <div class="container">
         <div class="breadcrumb font-semibold">
-          <ul class="flex gap-4">
+          <ul class="flex gap-4 md:text-base text-sm">
             <li><a href="index.php">Home ></a></li>
             <li><a href="<?= $product_details["product_type"] ?>.php"><?= $product_details["product_type"] ?> ></a></li>
             <li><a href="" class="text-blue-Neru">Detail Product </a></li>
           </ul>
         </div>
-        <div class="item mt-5 grid md:grid-cols-7 gap-10 grid-cols-1">
-          <div class="left-content md:col-span-3 col-span-4">
+        <div class="item mt-5 grid grid-cols-12 gap-6 w-full">
+          <div id="Product_img" class="left-content 2xl:col-span-4 md:col-span-6 col-span-12">
             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                  <img src="img/<?= $product_details["product_img"] ?>" class="w-full 3xl:h-[650px] 2xl:h-[530px] xl:h-[480px] lg:h-[430px] md:h-[300px] h-[300px] object-contain bg-white shadow-md" alt="" />
+                  <img src="img/<?= $product_details["product_img"] ?>" class="w-full 3xl:h-[480px] 2xl:h-[400px] xl:h-[480px] lg:h-[430px] md:h-[300px] h-[300px] object-contain bg-white shadow-md" alt="" />
                 </div>
                 <?php
                 for ($i = 1; $i <= 3; $i++) {
@@ -60,14 +54,14 @@
                   $img_src = isset($multiImage[$image_key]) ? "img/{$multiImage[$image_key]}" : "img/Onerror/onigiri 3.jpg";
                 ?>
                   <div class="swiper-slide">
-                    <img src="<?= $img_src ?>" class="w-full 3xl:h-[650px] 2xl:h-[530px] xl:h-[480px] lg:h-[430px] md:h-[300px] h-[300px] object-contain bg-white shadow-md" alt="" />
+                    <img src="<?= $img_src ?>" class="w-full 3xl:h-[480px] 2xl:h-[400px] xl:h-[480px] lg:h-[430px] md:h-[300px] h-[300px] object-contain bg-white shadow-md" alt="" />
                   </div>
                 <?php } ?>
               </div>
               <div thumbsSlider="" class="swiper mySwiper mt-2">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                    <img src="img/<?= $product_details["product_img"] ?>" class="cursor-pointer w-full object-contain 3xl:h-[160px] 2xl:h-[130px] xl:h-[120px] h-[75px] shadow-md  bg-white" alt="" />
+                    <img src="img/<?= $product_details["product_img"] ?>" class="cursor-pointer w-full object-contain 3xl:h-[120px] xl:h-[100px] h-[75px] shadow-md  bg-white" alt="" />
                   </div>
                   <?php
                   for ($i = 1; $i <= 3; $i++) {
@@ -75,15 +69,14 @@
                     $img_src = isset($multiImage[$image_key]) ? "img/{$multiImage[$image_key]}" : "img/Onerror/onigiri 3.jpg";
                   ?>
                     <div class="swiper-slide">
-                      <img src="<?= $img_src ?>" class="cursor-pointer w-full object-contain 3xl:h-[160px] 2xl:h-[130px] xl:h-[120px] h-[75px] shadow-md  bg-white" alt="" />
+                      <img src="<?= $img_src ?>" class="cursor-pointer w-full object-contain 3xl:h-[120px] xl:h-[100px] h-[75px] shadow-md  bg-white" alt="" />
                     </div>
                   <?php } ?>
                 </div>
               </div>
             </div>
-
           </div>
-          <div class="right-content col-span-4">
+          <div id="Product_details" class="right-content 2xl:col-span-5 md:col-span-6 col-span-12">
             <div class="wrapper flex flex-col gap-4">
               <h2 class="font-bold lg:text-2xl md:text-xl text-lg"><?= $product_details["product_name"] ?></h2>
               <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
@@ -94,137 +87,160 @@
                 <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
               </svg>
               <h6>Rp.<?= number_format($product_details["product_price"], 0, ',', ',') ?></h6>
-              <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">Stock <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]"><?= $product_details["product_stock"] ?></span></h6>
               <h6 class="flex gap-3">Weight <span><?= $product_details["product_weight"] ?></span></h6>
-              <form action="" method="POST">
-                <div class="quantity flex md:gap-3 gap-1.5">
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <div class="accordion-wrapper mt-5">
+                <div class="accordion-header cursor-pointer flex justify-between items-center bg-blue-Neru text-white px-4 lg:py-4 py-3 relative">
+                  <h3 class="font-medium lg:text-base text-sm">PRODUCT SPECIFICATIONS</h3>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down md:w-7 w-5" viewBox="0 0 24 24" fill="white">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M6 10l6 6l6 -6h-12"></path>
+                  </svg>
+                </div>
+                <div class="accordion-body bg-white shadow-sm">
+                  <div class="content-wrapper p-4">
+                    <span class="md:text-base text-sm">
+                      <?= $product_details["product_specification"] ?>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-wrapper">
+                <div class="accordion-header cursor-pointer flex justify-between items-center bg-blue-Neru text-white px-4 lg:py-4 py-3 relative">
+                  <h3 class="font-medium lg:text-base text-sm">WARRANTY</h3>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down md:w-7 w-5" viewBox="0 0 24 24" fill="white">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M6 10l6 6l6 -6h-12"></path>
+                  </svg>
+                </div>
+                <div class="accordion-body bg-white shadow-sm">
+                  <div class="content-wrapper p-4">
+                    <span class="md:text-base text-sm">
+                      <?= $product_details["product_warranty"] ?>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="2xl:block hidden end-content col-span-3  h-full" id="note_product">
+            <?php
+            $product_id = $_GET["product_id"];
+
+            if (isset($_POST["AddToCart"])) {
+              // Check if the user is logged in
+              if (isset($_SESSION['user_id'])) {
+                $user_id = $_SESSION['user_id'];
+
+                // Retrieve the product ID from the form
+                $product_id = $_POST['product_id'];
+
+                // Check if the product is already in the cart for the current user
+                $existingCartItem = query("SELECT * FROM order_cart WHERE user_id = $user_id AND product_id = $product_id");
+
+                if ($existingCartItem) {
+                  // Product already exists in the cart
+                  echo "<script>alert('Item sudah ditambahkan sebelumnya.');</script>";
+                } else {
+                  // Product doesn't exist in the cart, proceed to add it
+                  if (addtoCart($_POST) > 0) {
+                    $_SESSION['success_code'] = "success";
+                  }
+                }
+              } else {
+                // User is not logged in, cannot add to cart
+                echo "<script>alert('Anda harus login terlebih dahulu.');</script>";
+              }
+            }
+            $success_message = isset($_SESSION['success_message']) ? $_SESSION['success_message'] : "";
+            unset($_SESSION['success_message']);
+            ?>
+
+            <form action="" class="sticky top-28" method="POST">
+              <input type="hidden" name="product_id" value="<?= $product_id ?>">
+              <?php if (isset($_SESSION['user_id'])) : ?>
+                <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
+              <?php endif; ?>
+              <div class="p-3 bg-white border-[1px]  text-black border-blue-Neru text-center 3xl:w-full 2xl:w-fit rounded-md flex flex-col gap-3">
+                <h6 class="self-start font-semibold">Atur Catatan & Jumlah </h6>
+                <textarea class="p-2 outline-none border-[1px] border-blue-Neru border-opacity-50 rounded-lg text-start resize-none" name="order_note" placeholder="Contoh : Warna Pink , Ukuran XXL Berikan Note Pada Happy birthday hiro ,  Dll..." cols="30" rows="5"></textarea>
+                <div class="quantity flex md:gap-3  justify-between gap-1.5">
                   <?php if (!isset($_SESSION["user_id"])) : ?>
                     <span id="qty" class="flex gap-2">
                       <button disabled id="decrement" class="bg-blue-Neru bg-opacity-50 w-10 text-white h-10 flex items-center justify-center rounded-sm lg:text-base text-sm">-</button>
                       <input disabled id="quantity" type="number" class="current-page w-10 h-10 bg-opacity-50 text-opacity-50 text-center py-1 bg-white shadow-lg md:text-2xl text-sm outline-none border-blue-Neru border-[1px]" min="0" max="5" value="1" />
                       <button disabled id="increment" class="bg-blue-Neru bg-opacity-50 w-10 text-white h-10 flex items-center justify-center rounded-sm lg:text-base text-sm">+</button>
                     </span>
-                    <button id="addToCart" disabled class="bg-blue-Neru bg-opacity-50 w-full rounded-sm py-2 md:px-4 px-2 text-white lg:text-base text-sm flex gap-4 items-center justify-center">Tambah Ke keranjang</button>
+                    <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">Stock
+                      <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">
+                        <?= $product_details["product_stock"] ?>
+                      </span>
+                    </h6>
                   <?php else : ?>
-                    <?php
-
-
-                    // Initialize array to store transactions
-                    if (!isset($_SESSION['cart'])) {
-                      $_SESSION['cart'] = array();
-                    }
-
-                    // Check if form has been submitted and user is logged in
-                    if (isset($_POST['submit']) && isset($_SESSION['user_id'])) {
-                      // You need to set this from your form
-                      $product_id = $_GET['product_id'];
-
-                      // Query to get product information
-                      $showAddedItem = query("SELECT * FROM product WHERE product_id = $product_id");
-
-                      // Ensure product is found
-                      if ($showAddedItem) {
-                        $product = $showAddedItem[0];
-
-                        // Get product information from query result
-                        $product_name = $product['product_name'];
-                        $product_price = $product['product_price'];
-                        $product_quantity = $_POST['quantity_item'];
-
-                        // Check if product is already in the cart
-                        $product_exists = false;
-                        foreach ($_SESSION['cart'] as &$item) {
-                          if ($item['product_id'] == $product_id) {
-                            $product_exists = true;
-                            // Set product quantity to the new value
-                            $item['product_quantity'] = $product_quantity;
-                            // Recalculate subtotal
-                            $item['product_subtotal'] = $product_price * $product_quantity;
-                            // Success message
-                            $_SESSION['success_code'] = "success";
-                            break;
-                          }
-                        }
-
-                        // If product is not in the cart, add it
-                        if (!$product_exists) {
-                          // Check if product quantity exceeds 5
-                          if ($product_quantity <= 5) {
-                            // Calculate subtotal
-                            $product_subtotal = $product_price * $product_quantity;
-
-                            // Add product information to transaction array
-                            $transaction_info = array(
-                              'product_id' => $product_id,
-                              'product_name' => $product_name,
-                              'product_price' => $product_price,
-                              'product_quantity' => $product_quantity,
-                              'product_subtotal' => $product_subtotal
-                            );
-
-                            // Add transaction to cart
-                            $_SESSION['cart'][] = $transaction_info;
-
-                            // Success message
-                            $_SESSION['success_code'] = "success";
-                          } else {
-                            // Error message if product quantity exceeds 5
-                            echo "<script>alert('Anda tidak dapat menambahkan lebih dari 5 produk dalam satu kali transaksi.');</script>";
-                          }
-                        }
-                      } else {
-                        // Error message if product is not found
-                        $_SESSION['error_message'] = "Produk tidak ditemukan.";
-                      }
-                    }
-
-                    // Display array contents
-                    var_dump($_SESSION['cart']);
-                    ?>
-
-
-                    <span id="qty" class="flex gap-2">
+                    <span id="qty" class="flex  gap-2">
                       <span id="decrement" class="cursor-pointer bg-blue-Neru w-10 text-white h-10 flex items-center justify-center rounded-sm lg:text-base text-sm">-</span>
-                      <input id="quantity" name="quantity_item" type="number" class="current-page w-10 h-10 text-center py-1 bg-white shadow-lg md:text-2xl text-sm outline-none border-blue-Neru border-[1px]" min="0" max="5" value="1" />
+                      <input id="quantity" name="order_quantity" type="number" class="current-page w-10 h-10 text-center py-1 bg-white shadow-lg md:text-2xl text-sm outline-none border-blue-Neru border-[1px]" min="1" max="5" value="1" />
                       <span id="increment" class="cursor-pointer bg-blue-Neru w-10 text-white h-10 flex items-center justify-center rounded-sm lg:text-base text-sm">+</span>
                     </span>
-                    <button type="submit" name="submit" id="addToCart" class="bg-blue-Neru w-full rounded-sm py-2 md:px-4 px-2 text-white lg:text-base text-sm flex gap-4 items-center justify-center">Tambah Ke keranjang</button>
-              </form>
-            <?php endif; ?>
-            </div>
-          </div>
-          <div class="flex flex-col gap-0.5">
-            <div class="accordion-wrapper mt-5">
-              <div class="accordion-header cursor-pointer flex justify-between items-center bg-blue-Neru text-white px-4 lg:py-4 py-3 relative">
-                <h3 class="font-medium lg:text-lg text-sm">PRODUCT SPECIFICATIONS</h3>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down md:w-7 w-4" viewBox="0 0 24 24" fill="white">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M6 10l6 6l6 -6h-12"></path>
-                </svg>
-              </div>
-              <div class="accordion-body bg-white shadow-sm">
-                <div class="content-wrapper p-4">
-                  <span class="md:text-base text-sm">
-                    <?= $product_details["product_specification"] ?>
-                  </span>
+                    <h6 class="flex gap-2.5 items-center font-semibold lg:text-base md:text-sm text-[11px]">Stock
+                      <span class="stock bg-blue-Neru md:px-3 px-2.5 py-0.5 rounded-md text-white lg:text-base md:text-sm text-[11px]">
+                        <?= $product_details["product_stock"] ?>
+                      </span>
+                    </h6>
+                  <?php endif; ?>
                 </div>
+                <?php if (!isset($_SESSION["user_id"])) : ?>
+                  <button disabled type="submit" name="AddToCart" id="addToCart" class="bg-blue-Neru bg-opacity-50 w-full rounded-sm py-2 md:px-4 px-2 text-white lg:text-base text-sm flex gap-4 items-center justify-center">+ keranjang</button>
+                <?php else : ?>
+                  <button type="submit" name="AddToCart" id="addToCart" class="bg-blue-Neru w-full rounded-sm py-2 md:px-4 px-2 text-white lg:text-base text-sm flex gap-4 items-center justify-center">+ keranjang</button>
+                <?php endif; ?>
+                <?php if (!isset($_SESSION["user_id"])) : ?>
+                  <button disabled type="submit" class="border-[1px]   transition-all ease-in-out duration-300 border-blue-Neru text-blue-Neru font-semibold w-full rounded-sm py-2 md:px-4 px-2  lg:text-base text-sm flex gap-4 items-center justify-center">Beli Sekarang</button>
+                <?php else : ?>
+                  <button type="submit" class="border-[1px] hover:bg-blue-Neru hover:text-white transition-all ease-in-out duration-300 border-blue-Neru text-blue-Neru font-semibold w-full rounded-sm py-2 md:px-4 px-2  lg:text-base text-sm flex gap-4 items-center justify-center">Beli Sekarang</button>
+                <?php endif; ?>
+                <span class="flex justify-between ">
+                  <h6 class="md:text-base text-sm font-semibold">Subtotal : </h6>
+                  <h6 id="subtotal" class="md:text-base text-sm font-semibold">Rp. <?= number_format($product_details["product_price"], 0, ',', ',') ?></h6>
+                </span>
               </div>
-            </div>
-            <div class="accordion-wrapper">
-              <div class="accordion-header cursor-pointer flex justify-between items-center bg-blue-Neru text-white px-4 lg:py-4 py-3 relative">
-                <h3 class="font-medium lg:text-lg text-sm">WARRANTY</h3>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down md:w-7 w-4" viewBox="0 0 24 24" fill="white">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M6 10l6 6l6 -6h-12"></path>
-                </svg>
-              </div>
-              <div class="accordion-body bg-white shadow-sm">
-                <div class="content-wrapper p-4">
-                  <span class="md:text-base text-sm"> <?= $product_details["product_warranty"] ?></span>
-                </div>
-              </div>
-            </div>
+            </form>
           </div>
+        </div>
+      </div>
+    </section>
+    <section class="product-review">
+      <div class="container">
+        <div class="title flex gap-2.5 flex-col lg:items-start items-center">
+          <h3 class="font-extrabold 3xl:text-3xl 2xl:text-2xl md:text-2xl text-xl">PRODUCT REVIEW</h3>
+          <hr class="3xl:w-20 2xl:w-16 md:w-14 w-10 md:border-8 border-[5px] border-blue-Neru rounded-sm" />
+        </div>
+        <div class="Wrap mt-9 flex flex-col gap-4 xl:max-h-[540px] md:max-h-[400px] max-h-[200px] md:pr-10 overflow-y-auto">
+          <?php for ($i = 1; $i <= 5; $i++) : ?>
+            <div class="box-review flex flex-col gap-4">
+              <span class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-28 md:w-20 w-16" viewBox="0 0 96 17" fill="none">
+                  <path d="M8.72727 0L11.0357 5.20317L17.0274 5.6535L12.4623 9.31956L13.857 14.8011L8.72727 11.8636L3.59751 14.8011L4.99222 9.31956L0.427143 5.6535L6.41888 5.20317L8.72727 0Z" fill="#FE8B75" />
+                  <path d="M28.364 0L30.6724 5.20317L36.6641 5.6535L32.0991 9.31956L33.4938 14.8011L28.364 11.8636L23.2342 14.8011L24.6289 9.31956L20.0639 5.6535L26.0556 5.20317L28.364 0Z" fill="#FE8B75" />
+                  <path d="M47.9997 0L50.3081 5.20317L56.2999 5.6535L51.7348 9.31956L53.1295 14.8011L47.9997 11.8636L42.87 14.8011L44.2647 9.31956L39.6996 5.6535L45.6913 5.20317L47.9997 0Z" fill="#FE8B75" />
+                  <path d="M67.6363 0L69.9447 5.20317L75.9365 5.6535L71.3714 9.31956L72.7661 14.8011L67.6363 11.8636L62.5066 14.8011L63.9013 9.31956L59.3362 5.6535L65.3279 5.20317L67.6363 0Z" fill="#FE8B75" />
+                  <path d="M87.2732 0L89.5816 5.20317L95.5733 5.6535L91.0082 9.31956L92.4029 14.8011L87.2732 11.8636L82.1434 14.8011L83.5381 9.31956L78.973 5.6535L84.9648 5.20317L87.2732 0Z" fill="#FE8B75" />
+                </svg>
+                <h6 class="text-sm text-gray-400">2 month Ago</h6>
+              </span>
+              <div class="wrap-user flex flex-col gap-4">
+                <span class="flex gap-3 items-center">
+                  <img class="rounded-full w-10 h-10 object-cover" src="https://asset.kompas.com/crops/3QcbIRoKn11P2lvzr4Ec5C26CGE=/0x0:0x0/750x500/data/photo/buku/61e6a27535e52.jpg" alt="">
+                  <h6 class="font-semibold">Immanuel Christian Hirani</h6>
+                </span>
+                <h6 class="text-justify">
+                  I recently bought the [Product Name] and am very impressed. The product arrived in a sleek, protective package with clear instructions, making unboxing enjoyable. Its elegant, modern design fits any setting, and the durable, high-quality materials ensure long-lasting use. The ergonomic design provides comfort, and the attention to detail is evident.
+                </h6>
+              </div>
+              <hr class="border-[1.5px] border-gray-200">
+            </div>
+          <?php endfor; ?>
         </div>
       </div>
     </section>
@@ -309,21 +325,9 @@
     <?php include "layout/floatingButton.php" ?>
     <section class="addToCartSuccesfull">
       <div id="SuccesAddtoCart" class="container fixed top-10 z-10 transition-all ease-in-out duration-500 invisible opacity-0 flex right-1/2 w-fit translate-x-1/2">
-        <div class="p-3 bg-white border-[1px] text-black border-blue-Neru text-center w-96 rounded-md flex flex-col gap-3">
-          <?php
-          if (isset($_SESSION["cart"])) {
-            // Ambil data terakhir dari keranjang
-            $lastTransaction = end($_SESSION["cart"]);
-            // Menampilkan informasi produk terakhir yang ditambahkan
-            $product_name = $lastTransaction["product_name"];
-            $product_quantity = $lastTransaction["product_quantity"];
-          ?>
-            <h6><?= $product_name ?></h6>
-            <h6>Total Quantity : <?= $product_quantity ?></h6>
-            <h6 class="text-green-500">Berhasil Ditambahkan</h6>
-          <?php } ?>
+        <div class="p-3 bg-white border-[1px] text-black border-blue-Neru text-center w-96 h-24 justify-center items-center rounded-md flex flex-col gap-3">
+          <h6 class="text-blue-Neru">Product Berhasil Ditambahkan</h6>
         </div>
-
       </div>
     </section>
   </main>
@@ -338,53 +342,67 @@
 <script src="js/accordion.js"></script>
 <script src="js/floatingbtn.js"></script>
 <script>
-  const addToCartToggler = document.getElementById("addToCart");
-  const SuccesAddtoCartBox = document.getElementById("SuccesAddtoCart");
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const SuccesAddtoCartBox = document.getElementById("SuccesAddtoCart");
 
-  // Periksa apakah $_SESSION['success_code'] diatur, jika ya, tampilkan kotak sukses
-  <?php if (isset($_SESSION['success_code']) && $_SESSION['success_code'] === "success") { ?>
-    SuccesAddtoCartBox.classList.add("BoxSuccesActiveCart");
-    // Hapus $_SESSION['success_code'] setelah kotak sukses ditampilkan
-    <?php unset($_SESSION['success_code']); ?>
-    // Hapus kotak sukses setelah 2 detik
-    setTimeout(() => {
-      SuccesAddtoCartBox.classList.remove("BoxSuccesActiveCart");
-    }, 2000);
-  <?php } ?>
+    // Check if the success code is set in the session
+    <?php if (isset($_SESSION['success_code']) && $_SESSION['success_code'] === "success") { ?>
+      SuccesAddtoCartBox.classList.add("BoxSuccesActiveCart");
+      // Remove the success code from the session
+      <?php unset($_SESSION['success_code']); ?>
+      // Hide the success box after 2 seconds
+      setTimeout(() => {
+        SuccesAddtoCartBox.classList.remove("BoxSuccesActiveCart");
+      }, 2000);
+    <?php } ?>
+  });
 </script>
-
 <script>
-  // Get the input element and the decrement and increment buttons
-  var quantityInput = document.getElementById("quantity");
-  var decrementButton = document.getElementById("decrement");
-  var incrementButton = document.getElementById("increment");
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the input element and the decrement and increment buttons
+    var quantityInput = document.getElementById("quantity");
+    var decrementButton = document.getElementById("decrement");
+    var incrementButton = document.getElementById("increment");
+    var subtotalElement = document.getElementById("subtotal");
 
-  // Add click event listeners to the decrement and increment buttons
-  decrementButton.addEventListener("click", function() {
-    decrementQuantity();
-  });
+    // Add click event listeners to the decrement and increment buttons
+    decrementButton.addEventListener("click", function() {
+      decrementQuantity();
+      updateSubtotal();
+    });
 
-  incrementButton.addEventListener("click", function() {
-    incrementQuantity();
-  });
+    incrementButton.addEventListener("click", function() {
+      incrementQuantity();
+      updateSubtotal();
+    });
 
-  // Function to decrement the quantity
-  function decrementQuantity() {
-    var currentValue = parseInt(quantityInput.value);
-    if (currentValue > 0) {
-      quantityInput.value = currentValue - 1;
+    // Function to decrement the quantity
+    function decrementQuantity() {
+      var currentValue = parseInt(quantityInput.value);
+      if (currentValue > 1) {
+        quantityInput.value = currentValue - 1;
+      }
     }
-  }
 
-  // Function to increment the quantity
-  function incrementQuantity() {
-    var currentValue = parseInt(quantityInput.value);
-    var maxValue = parseInt(quantityInput.getAttribute("max"));
-    if (currentValue < maxValue) {
-      quantityInput.value = currentValue + 1;
+    // Function to increment the quantity
+    function incrementQuantity() {
+      var currentValue = parseInt(quantityInput.value);
+      var maxValue = parseInt(quantityInput.getAttribute("max"));
+      if (currentValue < maxValue) {
+        quantityInput.value = currentValue + 1;
+      }
     }
-  }
+
+    // Function to update the subtotal
+    function updateSubtotal() {
+      const productPrice = <?= $product_details["product_price"] ?>;
+      const quantity = parseInt(quantityInput.value);
+      const subtotal = productPrice * quantity;
+      subtotalElement.textContent = 'Rp. ' + subtotal.toLocaleString('id-ID');
+    }
+  });
 </script>
+
 
 
 

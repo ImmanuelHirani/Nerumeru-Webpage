@@ -34,6 +34,7 @@ if (isset($_POST["submit"])) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <title>Nerumeru | Admin</title>
 </head>
+
 <body>
   <main class="my-0">
     <section class="admin relative h-screen overflow-hidden my-0">

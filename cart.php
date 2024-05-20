@@ -89,18 +89,14 @@
     exit(); // Stop PHP script execution after sending the error message
   }
 
-
-
   ?>
   <main>
-    <section class="cart lg:mt-40 md:mt-32">
+    <section class="cart mt-32">
       <div class="container flex flex-col gap-6">
         <div class="breadcrumb font-semibold">
           <ul class="flex gap-4 items-center md:text-base text-sm">
-            <li><a href="">Home > </a></li>
-            <li><a href="">Bedding > </a></li>
-            <li><a href="">Detail Product > </a></li>
-            <li><a href="" class="text-blue-Neru">Cart</a></li>
+            <li><a href="index.php">Home > </a></li>
+            <li><a href="cart.php" class="text-blue-Neru">Cart</a></li>
           </ul>
         </div>
         <div class="grid xl:grid-cols-7 md:grid-cols-8 grid-cols-4 lg:gap-4 gap-2">
@@ -156,67 +152,78 @@
                 <div class="z-10 w-full h-full rounded-md flex items-center justify-center text-white bg-blue-Neru absolute inset-x-0 top-0 -translate-x-full group-hover:translate-x-0 transition-all ease-linear duration-200"></div>
               </button>
             </div>
-            <div class="cart-item bg-white lg:p-5 p-3">
-              <hr class="mb-5" />
-              <div class="flex md:gap-6 gap-4 items-center">
-                <img src="img/card-item-2.png" class="xl:w-[20%] md:w-[30%] w-[35%]" alt="" />
-                <div class="item-informations flex justify-between w-full">
-                  <span class="flex flex-col 3xl:gap-5 2xl:gap-3 xl:gap-2 gap-2.5">
-                    <h5 class="font-semibold lg:text-base md:text-sm text-xs">NeruBedding - Silver Grey</h5>
-                    <h6 class="lg:text-base md:text-sm text-xs">Rp.500.000</h6>
-                    <h6 class="lg:text-base md:text-sm text-xs">Berat Barang : 100g</h6>
-                    <span id="qty" class="flex gap-2">
-                      <button class="bg-blue-Neru text-white lg:w-10 md:w-8 w-6 lg:h-10 md:h-8 h-6 flex items-center justify-center rounded-sm lg:text-base text-sm">-</button>
-                      <input type="number" class="current-page lg:w-10 md:w-8 w-6 lg:h-10 md:h-8 h-6 text-center py-1 bg-white md:text-2xl text-sm outline-none border-blue-Neru border-[1px]" min="0" max="9" value="1" />
-                      <button class="bg-blue-Neru text-white lg:w-10 md:w-8 w-6 lg:h-10 md:h-8 h-6 flex items-center justify-center rounded-sm lg:text-base text-sm">+</button>
-                    </span>
-                    <h6 class="lg:text-base md:text-sm text-xs gap-1 items-center text-green-500 lg:flex hidden">
-                      Tulis Catatan
-                      <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-6 w-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M12 15l8.385 -8.415a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3z"></path>
-                        <path d="M16 5l3 3"></path>
-                        <path d="M9 7.07a7 7 0 0 0 1 13.93a7 7 0 0 0 6.929 -6"></path>
-                      </svg>
-                    </h6>
-                  </span>
-                  <h6 class="items-center md:gap-4 gap-2 lg:text-base md:text-sm text-xs text-red-500 lg:flex hidden">
-                    Delete
-                    <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-6 w-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                      <path d="M4 7l16 0"></path>
-                      <path d="M10 11l0 6"></path>
-                      <path d="M14 11l0 6"></path>
-                      <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                      <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                    </svg>
-                  </h6>
+            <!-- <?php
+
+                  $user_id = $_SESSION["user_id"];
+                  $showAddedItem = query("
+                SELECT * 
+                FROM order_cart 
+                INNER JOIN product ON order_cart.product_id = product.product_id 
+                WHERE order_cart.user_id = $user_id
+            ");
+                  ?> -->
+            <?php if (!empty($showAddedItem)) : ?>
+              <?php foreach ($showAddedItem as $itemCart) : ?>
+                <div class="cart-item bg-white lg:p-5 p-3">
+                  <hr class="mb-5" />
+                  <div class="flex md:gap-6 gap-4 items-center">
+                    <img src="img/<?= htmlspecialchars($itemCart['product_img']) ?>" class="xl:w-[20%] md:w-[30%] w-[35%]" alt="" />
+                    <div class="item-informations flex justify-between w-full">
+                      <span class="flex flex-col 3xl:gap-5 2xl:gap-3 xl:gap-2 gap-2.5">
+                        <h5 class="font-semibold lg:text-base md:text-sm text-xs line-clamp-2"><?= htmlspecialchars($itemCart['product_name']) ?></h5>
+                        <h6 class="lg:text-base md:text-sm text-xs">
+                          Rp.<?= number_format($itemCart['product_price'], 0, ',', '.') ?>
+                        </h6>
+                        <h6 class="lg:text-base md:text-sm text-xs">Berat Barang: <?= htmlspecialchars($itemCart['product_weight']) ?></h6>
+
+
+                        <span id="qty" class="product_data flex gap-2">
+                          <button name="decrement" class="decrement updateQty bg-blue-Neru text-white lg:w-10 md:w-6 w-6 lg:h-10 md:h-6 h-6 flex items-center justify-center rounded-sm lg:text-base text-sm">-</button>
+                          <input type="hidden" name="item_id" class="prodId" value="<?= $itemCart['order_id'] ?>">
+                          <input type="number" name="quantity" class="quantity current-page lg:w-10 md:w-6 w-6 lg:h-10 md:h-6 h-6 text-center py-1 bg-white xl:text-2xl text-sm outline-none border-blue-Neru border-[1px]" min="1" max="5" value="<?= htmlspecialchars($itemCart['order_quantity']) ?>" />
+                          <button type="submit" name="increment " class="increment updateQty bg-blue-Neru text-white lg:w-10 md:w-6 w-6 lg:h-10 md:h-6 h-6 flex items-center justify-center rounded-sm lg:text-base text-sm">+</button>
+                        </span>
+
+                        <h6 class="lg:text-base md:text-sm text-xs gap-1 items-center text-green-500 lg:flex hidden">
+                          Tulis Catatan
+                          <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-6 w-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M12 15l8.385 -8.415a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3z"></path>
+                            <path d="M16 5l3 3"></path>
+                            <path d="M9 7.07a7 7 0 0 0 1 13.93a7 7 0 0 0 6.929 -6"></path>
+                          </svg>
+                        </h6>
+                      </span>
+                      <a onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" href="hapus.php?order_id=<?= htmlspecialchars($itemCart['order_id']) ?>" class="items-center md:gap-4 gap-2 lg:text-base md:text-sm text-xs text-red-500 lg:flex hidden">
+                        Delete
+                        <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-6 w-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                          <path d="M4 7l16 0"></path>
+                          <path d="M10 11l0 6"></path>
+                          <path d="M14 11l0 6"></path>
+                          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+            <?php else : ?>
+              <div class="cart-item bg-white lg:p-5 p-3 h-[145px] flex flex-col justify-center items-center shadow-sm">
+                <div class="flex md:gap-6 gap-4 items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart-off">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                    <path d="M17 17a2 2 0 1 0 2 2" />
+                    <path d="M17 17h-11v-11" />
+                    <path d="M9.239 5.231l10.761 .769l-1 7h-2m-4 0h-7" />
+                    <path d="M3 3l18 18" />
+                  </svg>
+                  <h6 class="lg:text-base md:text-sm text-xs font-medium">Cart Kosong Yuk Belanja !</h6>
                 </div>
               </div>
-              <hr class="mt-5" />
-              <div class="flex items-center justify-between">
-                <h6 class="gap-1 md:text-sm text-xs items-center text-green-500 mt-2 lg:hidden flex">
-                  Tulis Catatan
-                  <svg xmlns="http://www.w3.org/2000/svg" class="md:w-5 w-4" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M12 15l8.385 -8.415a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3z"></path>
-                    <path d="M16 5l3 3"></path>
-                    <path d="M9 7.07a7 7 0 0 0 1 13.93a7 7 0 0 0 6.929 -6"></path>
-                  </svg>
-                </h6>
-                <h6 class="items-center md:text-sm text-xs md:gap-4 gap-1 text-red-500 lg:hidden flex mt-2">
-                  Delete
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash md:w-5 w-4" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M4 7l16 0"></path>
-                    <path d="M10 11l0 6"></path>
-                    <path d="M14 11l0 6"></path>
-                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                  </svg>
-                </h6>
-              </div>
-            </div>
+            <?php endif; ?>
           </div>
           <div class="right-content xl:col-span-2 md:col-span-3 col-span-4">
             <div class="flex flex-col gap-3 sticky top-28">
@@ -278,7 +285,7 @@
                 </div>
               </div>
               <div class="accordion-wrapper">
-                <div class="accordion-header cursor-pointer bg-white px-4 py-4 relative">
+                <div class="accordion-header bg-blue-Neru cursor-pointer text-white px-4 py-4 relative">
                   <div class="wrap flex justify-between items-center">
                     <h5 class="font-semibold lg:text-base text-sm">Ringkasan Belanja</h5>
                     <svg xmlns="http://www.w3.org/2000/svg" class="lg:w-5 w-4" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -286,23 +293,21 @@
                       <path d="M6 9l6 6l6 -6"></path>
                     </svg>
                   </div>
-                  <hr class="mt-4" />
                 </div>
                 <div class="accordion-body bg-white shadow-sm">
-                  <div class="content-wrapper p-4">
+                  <div class="content-wrapper py-4 px-4">
                     <div class="wrapper flex flex-col gap-4">
-                      <span class="flex justify-between">
-                        <h6 class="lg:text-base text-sm">Neru Bedding</h6>
-                        <h6 class="lg:text-base text-sm">Rp2000</h6>
-                      </span>
+                      <div class="xl:h-[250px] h-[150px] overflow-y-auto flex flex-col gap-3 cart-container">
+                        <!-- Cart items will be dynamically loaded here -->
+                      </div>
+                      <hr>
                       <span class="flex justify-between">
                         <h6 class="lg:text-base text-sm">Ongkir</h6>
                         <h6 class="lg:text-base text-sm">Rp2000</h6>
                       </span>
-                      <hr />
                       <span class="flex justify-between">
                         <h6 class="lg:text-base text-sm">Total Belanja</h6>
-                        <h6 class="lg:text-base text-sm">Rp4000</h6>
+                        <h6 id="totalBelanja" class="lg:text-base text-sm">Rp. -</h6>
                       </span>
                       <a id="checkoutToggle" class="bg-blue-Neru text-center lg:p-2 py-2 px-2 text-white font-semibold rounded-md lg:text-base text-sm triggerBox cursor-pointer" type="button">Checkout Now </a>
                     </div>
@@ -312,67 +317,81 @@
             </div>
           </div>
         </div>
-      </div>
-      <?php include "layout/modal/ModalLocationsSelector.php" ?>
-      <div class="text-start fixed inset-0 bg-black bg-opacity-0 flex justify-center items-center -z-20 text-black">
-        <div id="PaymentBox" class="alamat-wrapper transition-all ease-in-out duration-300 opacity-0 bg-white lg:w-[30%] md:w-[70%] w-[90%] h-fit rounded-lg">
-          <div class="p-4 flex justify-between">
-            <h6>Pembayaran</h6>
-            <svg xmlns="http://www.w3.org/2000/svg" class="closeBox w-6 cursor-pointer text-blue-Neru" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M18 6l-12 12"></path>
-              <path d="M6 6l12 12"></path>
-            </svg>
-          </div>
-          <hr />
-          <div class="flex flex-col gap-3 p-4">
-            <div class="flex justify-between items-center">
-              <h6 class="md:text-base font-semibold text-xs capitalize">Metode Pembayaran</h6>
+        <?php include "layout/modal/ModalLocationsSelector.php" ?>
+        <!-- Checkout Selection Payment -->
+        <div class="text-start fixed inset-0 bg-black bg-opacity-0 flex justify-center items-center -z-20 text-black">
+          <div id="PaymentBox" class="alamat-wrapper transition-all ease-in-out duration-300 opacity-0 bg-white lg:w-[30%] md:w-[70%] w-[90%] h-fit rounded-lg">
+            <div class="p-4 flex justify-between">
+              <h6>Pembayaran</h6>
+              <svg xmlns="http://www.w3.org/2000/svg" class="closeBox w-6 cursor-pointer text-blue-Neru" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M18 6l-12 12"></path>
+                <path d="M6 6l12 12"></path>
+              </svg>
             </div>
-            <div class="flex flex-col gap-4">
-              <span class="flex justify-between">
-                <label for="BCA" name="BCA" class="">
-                  <img src="img/BCA.png" class="md:w-[70%] w-[50%]" alt="" />
-                </label>
-                <input type="radio" id="BCA" name="paymentMethod" onchange="handleRadioChange(this)" />
+            <hr />
+            <div class="flex flex-col gap-3 p-4">
+              <div class="flex justify-between items-center">
+                <h6 class="md:text-base font-semibold text-xs capitalize">Metode Pembayaran</h6>
+              </div>
+              <div class="flex flex-col gap-4">
+                <span class="flex justify-between">
+                  <label for="BCA" name="BCA" class="">
+                    <img src="img/BCA.png" class="md:w-[70%] w-[50%]" alt="" />
+                  </label>
+                  <input type="radio" id="BCA" name="paymentMethod" onchange="handleRadioChange(this)" />
+                </span>
+                <span class="flex justify-between">
+                  <label for="MANDIRI" name="MANDIRI" class="">
+                    <img src="img/MANDIRI.png" class="md:w-[70%] w-[50%]" alt="" />
+                  </label>
+                  <input type="radio" id="MANDIRI" name="paymentMethod" onchange="handleRadioChange(this)" />
+                </span>
+              </div>
+            </div>
+            <hr />
+            <div class="flex flex-col gap-3 p-4">
+              <div class="flex justify-between items-center">
+                <h6 class="md:text-base font-semibold text-xs capitalize">Ringkasan Belanja</h6>
+              </div>
+              <div class="body flex flex-col gap-4 h-[180px] overflow-y-auto">
+                <?php
+                $totalBelanja = 0; // Inisialisasi total belanja
+                foreach ($showAddedItem as $cartDetails) :
+                  $subtotal = $cartDetails['product_price'] * $cartDetails['order_quantity'];
+                  $totalBelanja += $subtotal;
+                ?>
+                  <hr>
+                  <div class="flex flex-col gap-1.5 justify-between">
+                    <h6 class="lg:text-base text-sm line-clamp-1"><?= $cartDetails['product_name'] ?></h6>
+                    <div class="wrap-qunatity_total flex gap-3">
+                      <h6>Price : Rp.<?= number_format($cartDetails["product_price"], 0, ',', ',') ?></h6>
+                      <h6 class="text-red-500">X</h6>
+                      <h6>Qty : <?= $cartDetails['order_quantity'] ?></h6>
+                    </div>
+                    <h6 class="lg:text-base text-sm">Subtotal : Rp.<?= number_format($subtotal, 0, ',', ',') ?></h6>
+                  </div>
+                <?php endforeach; ?>
+                <hr>
+              </div>
+            </div>
+            <div class="flex flex-col gap-3 p-4">
+              <span class="flex justify-between font-semibold">
+                <h6 class="lg:text-base text-sm">Total Belanja</h6>
+                <?php if (!empty($showAddedItem)) : ?>
+                  <h6 class="lg:text-base text-sm">Rp.<?= number_format($totalBelanja, 0, ',', '.') ?></h6>
+                <?php else : ?>
+                  <h6 class="lg:text-base text-sm">Rp.-</h6>
+                <?php endif; ?>
               </span>
-              <span class="flex justify-between">
-                <label for="MANDIRI" name="MANDIRI" class="">
-                  <img src="img/MANDIRI.png" class="md:w-[70%] w-[50%]" alt="" />
-                </label>
-                <input type="radio" id="MANDIRI" name="paymentMethod" onchange="handleRadioChange(this)" />
-              </span>
             </div>
-          </div>
-          <hr />
-          <div class="flex flex-col gap-3 p-4">
-            <div class="flex justify-between items-center">
-              <h6 class="md:text-base font-semibold text-xs capitalize">Ringkasan Belanja</h6>
+            <hr />
+            <div class="flex items-center justify-end">
+              <a href="paymentWaitingList.php" class="text-center md:text-sm text-xs px-9 py-2 font-semibold capitalize bg-blue-Neru text-white closeBox cursor-pointer w-full rounded-lg rounded-t-none animate-pulse">Bayar</a>
             </div>
-            <div class="flex flex-col gap-2.5">
-              <span class="flex justify-between">
-                <h6>Bedding Silver Grey</h6>
-                <h6>Rp.500.000</h6>
-              </span>
-              <span class="flex justify-between">
-                <h6>Ongkir</h6>
-                <h6>Rp.13.000</h6>
-              </span>
-            </div>
-          </div>
-          <hr />
-          <div class="flex flex-col gap-3 p-4">
-            <div class="flex justify-between items-center">
-              <h6 class="md:text-base font-semibold text-xs capitalize">Total Belanja</h6>
-              <h6>Rp.513.000</h6>
-            </div>
-          </div>
-          <hr />
-          <div class="flex items-center justify-end">
-            <a href="paymentWaitingList.php" class="text-center md:text-sm text-xs px-9 py-2 font-semibold capitalize bg-blue-Neru text-white closeBox cursor-pointer w-full rounded-lg rounded-t-none animate-pulse">Bayar</a>
           </div>
         </div>
-      </div>
+        <!-- Checkout Selection Payment End -->
     </section>
     <?php include "layout/floatingButton.php" ?>
   </main>
@@ -411,8 +430,44 @@
     window.addEventListener('resize', setWrapperHeight);
   });
 </script>
+<script>
+  // Get the input elements and the decrement and increment buttons
+  var quantityInputs = document.querySelectorAll(".quantity");
+  var decrementButtons = document.querySelectorAll(".decrement");
+  var incrementButtons = document.querySelectorAll(".increment");
 
+  // Add click event listeners to each decrement and increment button
+  decrementButtons.forEach((button, index) => {
+    button.addEventListener("click", function() {
+      decrementQuantity(index);
+    });
+  });
 
+  incrementButtons.forEach((button, index) => {
+    button.addEventListener("click", function() {
+      incrementQuantity(index);
+    });
+  });
+
+  // Function to decrement the quantity
+  function decrementQuantity(index) {
+    var quantityInput = quantityInputs[index];
+    var currentValue = parseInt(quantityInput.value);
+    if (currentValue > 1) {
+      quantityInput.value = currentValue - 1;
+    }
+  }
+
+  // Function to increment the quantity
+  function incrementQuantity(index) {
+    var quantityInput = quantityInputs[index];
+    var currentValue = parseInt(quantityInput.value);
+    var maxValue = parseInt(quantityInput.getAttribute("max"));
+    if (currentValue < maxValue) {
+      quantityInput.value = currentValue + 1;
+    }
+  }
+</script>
 <script>
   const TogglelocationsBoxSelector = document.getElementById("ToggleLocationsBoxSelector")
   const locationsBoxSelector = document.getElementById("locationSelectorBox")
@@ -427,5 +482,73 @@
     locationsBoxSelector.classList.add("hidden")
   })
 </script>
+<!-- Script for updating quantity -->
+<script>
+  $(document).on('click', '.updateQty', function() {
+    var qty = $(this).closest('.product_data').find('.quantity').val();
+    var prod_id = $(this).closest('.product_data').find('.prodId').val();
+
+    $.ajax({
+      url: 'function.php',
+      method: "POST",
+      data: {
+        'order_id': prod_id,
+        'order_quantity': qty
+      },
+      success: function(response) {
+        updateCart();
+      }
+    });
+  });
+</script>
+
+<!-- Script for updating cart dynamically -->
+<script>
+  function updateCart() {
+    $.ajax({
+      url: 'update_cart.php',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        var cartHtml = '';
+        var totalBelanja = 0;
+        data.items.forEach(function(item) {
+          var subtotal = item.product_price * item.order_quantity;
+          totalBelanja += subtotal;
+          cartHtml += `
+            <span class="flex flex-col gap-1.5 justify-between">
+              <h6 class="lg:text-base text-sm">Item Name : ${item.product_name}</h6>
+              <span class="flex gap-1 items-center">
+                <h6 class="lg:text-base text-sm">Product Price : Rp.${new Intl.NumberFormat('id-ID').format(item.product_price)} X</h6>
+                <input class="w-[30px] h-[30px] outline-none" type="number" readonly value="${item.order_quantity}">
+              </span>
+              <h6 class="lg:text-base text-sm">Subtotal: Rp. ${new Intl.NumberFormat('id-ID').format(subtotal)}</h6>
+            </span>
+            <hr>`;
+        });
+
+        if (cartHtml === '') {
+          cartHtml = `
+            <span class="flex flex-col gap-1.5 justify-between items-center">
+              <h6>Tidak Ada Product Yuk belanja !!</h6>
+            </span>`;
+        }
+
+        $('.cart-container').html(cartHtml);
+        $('#totalBelanja').text('Rp. ' + new Intl.NumberFormat('id-ID').format(totalBelanja));
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.error('Error updating cart: ' + textStatus, errorThrown);
+      }
+    });
+  }
+
+  // Call updateCart function on page load
+  $(document).ready(function() {
+    updateCart();
+  });
+</script>
+
+
 
 </html>

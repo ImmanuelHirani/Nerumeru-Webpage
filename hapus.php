@@ -212,3 +212,20 @@ if (isset($_GET['img_id'])) {
         </script>";
     }
 }
+
+if (isset($_GET['order_id'])) {
+    $order_id = $_GET['order_id'];
+    if (deleteorderCart($order_id) > 0) {
+        echo "
+        <script>
+            alert('Data berhasil dihapus');
+            window.location.href = 'cart.php'; 
+        </script>";
+    } else {
+        echo "
+        <script>
+            alert('Data gagal dihapus atau data tidak ditemukan');
+            window.location.href = 'cart.php';
+        </script>";
+    }
+}

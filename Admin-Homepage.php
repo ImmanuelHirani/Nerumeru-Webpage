@@ -71,7 +71,7 @@ $bioNeru = query("SELECT * FROM bio");
                   Tambah Data
                 </a>
               </div>
-              <table id="myTable" class="myTableDisplay text-basepy-6 display nowrap table hover order-column row-border stripe">
+              <table id="myTable" class="myTableDisplay text-base py-6 display nowrap table hover order-column row-border stripe">
                 <thead>
                   <tr class="bg-blue-Neru text-white">
                     <th class="border-[1px] border-black-neru border-opacity-30">ID</th>
@@ -105,7 +105,6 @@ $bioNeru = query("SELECT * FROM bio");
                         </span>
                       </td>
                     </tr>
-
                   <?php endforeach; ?>
                 </tbody>
               </table>
@@ -331,7 +330,6 @@ $bioNeru = query("SELECT * FROM bio");
               <table id="myTable6" class="myTableDisplay py-6 3xl:text-base md:text-sm text-xs display nowrap table hover order-column row-border stripe">
                 <thead>
                   <tr class="bg-blue-Neru text-white">
-
                     <th class="border-[1px] border-black-neru border-opacity-30">ID</th>
                     <th class="border-[1px] border-black-neru border-opacity-30">Img</th>
                     <th class="border-[1px] border-black-neru border-opacity-30">insert on</th>
@@ -341,10 +339,8 @@ $bioNeru = query("SELECT * FROM bio");
                   </tr>
                 </thead>
                 <tbody>
-
                   <?php foreach ($hero as $neru) : ?>
                     <tr class="text-center">
-
                       <td class="w-14"><?= $neru["hero_id"] ?></td>
                       <td class="3xl:w-44 w-32"><img src="<?= $neru["hero_img"] ?>" class="w-[80%] object-contain mx-auto preview-img-toggle cursor-pointer" alt="" /></td>
                       <td><?= $neru["insert_date"] ?></td>
@@ -365,7 +361,6 @@ $bioNeru = query("SELECT * FROM bio");
                         </span>
                       </td>
                     </tr>
-
                   <?php endforeach; ?>
                 </tbody>
               </table>

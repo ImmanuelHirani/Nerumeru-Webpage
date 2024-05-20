@@ -152,7 +152,7 @@
           <div class="lg:col-span-2 col-span-8 row-span-6 px-8 py-8 bg-white rounded-md">
             <div class="sticky top-32">
               <div class="head flex items-center gap-6">
-                <img src="img/<?= $userData["user_img"] ?>" onerror="this.src='https://i.pinimg.com/564x/91/83/cb/9183cb908632a53bf619bbbcdfb68ae7.jpg'" class="object-cover w-12 h-12 rounded-full" alt="" />
+                <img src="img/<?= $userData["user_img"] ?>" onerror="this.src='https://i.pinimg.com/564x/91/83/cb/9183cb908632a53bf619bbbcdfb68ae7.jpg'" class="object-cover 3xl:w-12 3xl:h-12 2xl:w-14 2xl:h-12 h-12 w-12 rounded-full" alt="" />
                 <span class="flex flex-col">
                   <h6 class="font-medium line-clamp-1 lg:text-base md:text-lg"><?= !empty($userData["user_username"]) ? $userData["user_username"] : "Profile" ?></h6>
                   <span class="flex items-center gap-2 text-grey-neru">

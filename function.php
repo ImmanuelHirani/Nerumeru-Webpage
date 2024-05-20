@@ -1,7 +1,11 @@
 <?php
-
-
 $conn = mysqli_connect('localhost', 'root', '', 'nerumeru');
+
+// Periksa koneksi
+if (!$conn) {
+    die("Koneksi Gagal: " . mysqli_connect_error());
+}
+
 
 session_start();
 // Global Function
@@ -16,11 +20,58 @@ function query($query)
     }
     return $rows;
 }
+
 // Global Function end
+
+// cart Function
+
+
+function updateCart($data)
+{
+    global $conn;
+    $idCart = $data["order_id"];
+    $quantity = $data['order_quantity'];
+
+    $query = "UPDATE order_cart SET 
+              order_quantity = ? 
+              WHERE order_id = ?";
+
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "ii", $quantity, $idCart);
+    mysqli_stmt_execute($stmt);
+
+    if (mysqli_stmt_affected_rows($stmt) > 0) {
+        echo "Quantity updated successfully";
+    } else {
+        echo "Failed to update quantity cannot be less than 1 or more than 5";
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    updateCart($_POST);
+}
+
+
+function deleteorderCart($id)
+{
+
+    global $conn;
+
+
+    $query = "DELETE FROM order_cart WHERE order_id = $id";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+// cart End
 
 // Homepage function
 // =========================
-// Banner  
+// Banner
 function insertHero($data)
 {
     global $conn;
@@ -39,20 +90,20 @@ function insertHero($data)
     $hero_button2 = htmlspecialchars($data["hero_button2"]);
     $status = $data["status"];
 
-    $query = "INSERT INTO herosection 
-    VALUES (
-        '',
-        '$hero_title1',
-        '$hero_title2',
-        '$hero_title3',
-        '$hero_subtitle',
-        '$hero_button1',
-        '$hero_button2',
-        '$hero_img',
-        NOW(),
-        NOW(),
-        '$status'
-    )";
+    $query = "INSERT INTO herosection
+VALUES (
+'',
+'$hero_title1',
+'$hero_title2',
+'$hero_title3',
+'$hero_subtitle',
+'$hero_button1',
+'$hero_button2',
+'$hero_img',
+NOW(),
+NOW(),
+'$status'
+)";
 
 
     mysqli_query($conn, $query);
@@ -83,18 +134,18 @@ function updateHero($data)
     $hero_button2 = htmlspecialchars($data["hero_button2"]);
     $status = $data["status"];
 
-    $query = "UPDATE herosection SET 
-                hero_img = '$hero_img', 
-                hero_title1 = '$hero_title1', 
-                hero_title2 = '$hero_title2', 
-                hero_title3 = '$hero_title3', 
-                hero_subtitle = '$hero_subtitle', 
-                hero_button1 = '$hero_button1', 
-                hero_button2 = '$hero_button2', 
-                insert_date = NOW(),
-                lastUpdate_date = NOW(),
-                status = '$status'
-              WHERE hero_id = $hero_id";
+    $query = "UPDATE herosection SET
+hero_img = '$hero_img',
+hero_title1 = '$hero_title1',
+hero_title2 = '$hero_title2',
+hero_title3 = '$hero_title3',
+hero_subtitle = '$hero_subtitle',
+hero_button1 = '$hero_button1',
+hero_button2 = '$hero_button2',
+insert_date = NOW(),
+lastUpdate_date = NOW(),
+status = '$status'
+WHERE hero_id = $hero_id";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -112,9 +163,9 @@ function deleteHero($id)
 
     return mysqli_affected_rows($conn);
 }
-// Homepage function  End
+// Homepage function End
 
-// Why us Function 
+// Why us Function
 function insertwhyus($data)
 {
     global $conn;
@@ -129,18 +180,18 @@ function insertwhyus($data)
 
     $status = $data["status"];
 
-    $query = "INSERT INTO whyus 
-    VALUES (
-        '',
-        '$whyus_img',
-        '$whyus_title',
-        '$whyus_subtitle',
-        '$status',
+    $query = "INSERT INTO whyus
+VALUES (
+'',
+'$whyus_img',
+'$whyus_title',
+'$whyus_subtitle',
+'$status',
 
-        NOW(),
-        NOW()
-   
-    )";
+NOW(),
+NOW()
+
+)";
 
 
     mysqli_query($conn, $query);
@@ -165,15 +216,15 @@ function updatewhyus($data)
     $whyus_subtitle = htmlspecialchars($data["whyus_subtitle"]);
     $status = $data["status"];
 
-    $query = "UPDATE whyus SET 
-                whyus_img = '$whyus_img', 
-                whyus_title = '$whyus_title', 
-                whyus_subtitle = '$whyus_subtitle', 
-                status = '$status',
-                insert_date = NOW(),
-                lastUpdate_date = NOW()
-           
-              WHERE whyus_id = $whyus_id";
+    $query = "UPDATE whyus SET
+whyus_img = '$whyus_img',
+whyus_title = '$whyus_title',
+whyus_subtitle = '$whyus_subtitle',
+status = '$status',
+insert_date = NOW(),
+lastUpdate_date = NOW()
+
+WHERE whyus_id = $whyus_id";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -195,7 +246,7 @@ function deletewhyus($id)
 
 
 
-// product recommended Function 
+// product recommended Function
 function insertProductRecom($data)
 {
     global $conn;
@@ -213,15 +264,15 @@ function insertProductRecom($data)
     $status = $data["status"];
 
     $query = "INSERT INTO recommendsection
-    VALUES (
-        '',
-        '$recommend_img',
-        '$recommend_title',
-        '$recommend_link',
-        '$status',
-        NOW(),
-        NOW()
-    )";
+VALUES (
+'',
+'$recommend_img',
+'$recommend_title',
+'$recommend_link',
+'$status',
+NOW(),
+NOW()
+)";
 
 
     mysqli_query($conn, $query);
@@ -245,14 +296,14 @@ function updateProductRecom($data)
     $recommend_title = htmlspecialchars($data["recommend_title"]);
     $status = $data["status"];
 
-    $query = "UPDATE recommendsection SET 
-                recommend_img = '$recommend_img', 
-                recommend_title = '$recommend_title', 
-                recommend_targetLink = '$recommend_link', 
-                status = '$status',
-                insert_date = NOW(),
-                lastUpdate_date = NOW()
-              WHERE recommend_id = $recommend_id";
+    $query = "UPDATE recommendsection SET
+recommend_img = '$recommend_img',
+recommend_title = '$recommend_title',
+recommend_targetLink = '$recommend_link',
+status = '$status',
+insert_date = NOW(),
+lastUpdate_date = NOW()
+WHERE recommend_id = $recommend_id";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -273,7 +324,7 @@ function deleteProductRecom($id)
 // product recommended Function End
 
 
-// Event Function 
+// Event Function
 function insertEvent($data)
 {
     global $conn;
@@ -288,14 +339,14 @@ function insertEvent($data)
     $status = $data["status"];
 
     $query = "INSERT INTO neru_event
-    VALUES (
-        '',
-        '$event_type',
-        '$event_img',
-        '$status',
-        NOW(),
-        NOW()
-    )";
+VALUES (
+'',
+'$event_type',
+'$event_img',
+'$status',
+NOW(),
+NOW()
+)";
 
 
     mysqli_query($conn, $query);
@@ -319,13 +370,13 @@ function updateEvent($data)
     $event_type = htmlspecialchars($data["event_type"]);
     $status = $data["status"];
 
-    $query = "UPDATE neru_event SET 
-                event_type = '$event_type',
-                event_img = '$event_img', 
-                status = '$status',
-                insert_date = NOW(),
-                lastUpdate_date = NOW()
-              WHERE event_id = $event_id";
+    $query = "UPDATE neru_event SET
+event_type = '$event_type',
+event_img = '$event_img',
+status = '$status',
+insert_date = NOW(),
+lastUpdate_date = NOW()
+WHERE event_id = $event_id";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -346,7 +397,7 @@ function deleteEvent($id)
 // Event Function End
 
 
-// Event Function 
+// Event Function
 function insertBio($data)
 {
     global $conn;
@@ -359,15 +410,15 @@ function insertBio($data)
     $status = $data["status"];
 
     $query = "INSERT INTO bio
-    VALUES (
-        '',
-        '$bio_title',
-        '$bio_subtitle',
-        '$bio_full',
-        '$status',
-        NOW(),
-        NOW()
-    )";
+VALUES (
+'',
+'$bio_title',
+'$bio_subtitle',
+'$bio_full',
+'$status',
+NOW(),
+NOW()
+)";
 
 
     mysqli_query($conn, $query);
@@ -384,14 +435,14 @@ function updateBio($data)
     $bio_full = htmlspecialchars($data["bio_full"]);
     $status = $data["status"];
 
-    $query = "UPDATE bio SET 
-                bio_title = '$bio_title',
-                bio_subtitle = '$bio_subtitle',
-                bio_full = '$bio_full',
-                status = '$status',
-                insert_date = NOW(),
-                lastUpdate_date = NOW()
-              WHERE bio_id = $bio_id";
+    $query = "UPDATE bio SET
+bio_title = '$bio_title',
+bio_subtitle = '$bio_subtitle',
+bio_full = '$bio_full',
+status = '$status',
+insert_date = NOW(),
+lastUpdate_date = NOW()
+WHERE bio_id = $bio_id";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -412,7 +463,7 @@ function deleteBio($id)
 // Event Function End
 
 
-// Event Function 
+// Event Function
 function insertBlogIcon($data)
 {
     global $conn;
@@ -423,17 +474,17 @@ function insertBlogIcon($data)
     $status = $data["status"];
 
     $query = "INSERT INTO blog
-    VALUES (
-        '',
-        '$blog_type',
-        '$blog_icon',
-        '$blog_link',
-        '$blog_icon_title',
-        '',
-        '$status',
-        NOW(),
-        NOW()
-    )";
+VALUES (
+'',
+'$blog_type',
+'$blog_icon',
+'$blog_link',
+'$blog_icon_title',
+'',
+'$status',
+NOW(),
+NOW()
+)";
 
 
     mysqli_query($conn, $query);
@@ -451,15 +502,15 @@ function updateBlogIcon($data)
     $blog_icon_title = htmlspecialchars($data["blog_icon_title"]);
     $status = $data["status"];
 
-    $query = "UPDATE blog SET 
-                blog_type = '$blog_type',
-                blog_icon = '$blog_icon',
-                blog_targetLink = '$blog_link',
-                blog_icon_title = '$blog_icon_title',
-                status = '$status',
-                insert_date = NOW(),
-                lastUpdate_date = NOW()
-              WHERE blog_id = $blog_id";
+    $query = "UPDATE blog SET
+blog_type = '$blog_type',
+blog_icon = '$blog_icon',
+blog_targetLink = '$blog_link',
+blog_icon_title = '$blog_icon_title',
+status = '$status',
+insert_date = NOW(),
+lastUpdate_date = NOW()
+WHERE blog_id = $blog_id";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -481,7 +532,7 @@ function deleteBlogIcon($id)
 
 
 
-// Banner 
+// Banner
 function insertBanner($data)
 {
     global $conn;
@@ -492,17 +543,17 @@ function insertBanner($data)
     $status = $data["status"];
 
     $query = "INSERT INTO banner
-    VALUES (
-        '',
-        '$banner_img ',
-        '$banner_title',
-        '$banner_subtitle',
-        '$banner_button',
-        '',
-        '$status',
-        NOW(),
-        NOW()
-    )";
+VALUES (
+'',
+'$banner_img ',
+'$banner_title',
+'$banner_subtitle',
+'$banner_button',
+'',
+'$status',
+NOW(),
+NOW()
+)";
 
 
     mysqli_query($conn, $query);
@@ -520,15 +571,15 @@ function updateBanner($data)
     $banner_button = htmlspecialchars($data["banner_button"]);
     $status = $data["status"];
 
-    $query = "UPDATE blog SET 
-                banner_img = '$banner_img',
-                banner_title = '$banner_title',
-                banner_subtitle = '$banner_subtitle',
-                banner_button = '$banner_button',
-                status = '$status',
-                insert_date = NOW(),
-                lastUpdate_date = NOW()
-              WHERE banner_id = $banner_id";
+    $query = "UPDATE blog SET
+banner_img = '$banner_img',
+banner_title = '$banner_title',
+banner_subtitle = '$banner_subtitle',
+banner_button = '$banner_button',
+status = '$status',
+insert_date = NOW(),
+lastUpdate_date = NOW()
+WHERE banner_id = $banner_id";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -574,24 +625,24 @@ function insertProduct($data)
     $status = $data["status"];
 
 
-    $query = "INSERT INTO product 
-    VALUES (
-        '',
-        '$product_img',
-        '$product_type',
-        '$product_name',
-        '$product_categories',
-        '$product_stock',
-        '$product_color',
-        '$product_price',
-        '$product_specification',
-        '$product_weight',
-        '$product_warranty',
-        '$product_rating',
-        NOW(),
-        NOW(),
-        '$status'
-    )";
+    $query = "INSERT INTO product
+VALUES (
+'',
+'$product_img',
+'$product_type',
+'$product_name',
+'$product_categories',
+'$product_stock',
+'$product_color',
+'$product_price',
+'$product_specification',
+'$product_weight',
+'$product_warranty',
+'$product_rating',
+NOW(),
+NOW(),
+'$status'
+)";
 
 
     mysqli_query($conn, $query);
@@ -623,20 +674,20 @@ function updateProduct($data)
     $product_rating = htmlspecialchars($data["product_rating"]);
     $status = $data["status"];
 
-    $query = "UPDATE product SET 
-                product_img = '$product_img',
-                product_name = '$product_name', 
-                product_color = '$product_color', 
-                product_price = '$product_price', 
-                product_stock = '$product_stock', 
-                product_specification = '$product_specification', 
-                product_categories = '$product_categories', 
-                product_weight = '$product_weight', 
-                product_warranty = '$product_warranty', 
-                product_rating = '$product_rating',
-                lastUpdate_date = NOW(),
-                status = '$status'
-              WHERE product_id = $product_id";
+    $query = "UPDATE product SET
+product_img = '$product_img',
+product_name = '$product_name',
+product_color = '$product_color',
+product_price = '$product_price',
+product_stock = '$product_stock',
+product_specification = '$product_specification',
+product_categories = '$product_categories',
+product_weight = '$product_weight',
+product_warranty = '$product_warranty',
+product_rating = '$product_rating',
+lastUpdate_date = NOW(),
+status = '$status'
+WHERE product_id = $product_id";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -653,7 +704,7 @@ function deleteProduct($id)
 
     return mysqli_affected_rows($conn);
 }
-// Product function  End
+// Product function End
 
 
 // Trolly function
@@ -666,15 +717,15 @@ function insertTrolly($data)
     $trolly_color = htmlspecialchars($data["trolly_color"]);
     $status = $data["status"];
 
-    $query = "INSERT INTO trolly 
-    VALUES (
-        '',
-        '$trolly_size',
-        '$trolly_color',
-        NOW(),
-        NOW(),
-        '$status'
-    )";
+    $query = "INSERT INTO trolly
+VALUES (
+'',
+'$trolly_size',
+'$trolly_color',
+NOW(),
+NOW(),
+'$status'
+)";
 
 
     mysqli_query($conn, $query);
@@ -691,12 +742,12 @@ function updateTrolly($data)
     $trolly_color = htmlspecialchars($data["trolly_color"]);
     $status = $data["status"];
 
-    $query = "UPDATE trolly SET 
-                trolly_size = '$trolly_size',
-                trolly_color = '$trolly_color', 
-                lastUpdate_date = NOW(),
-                status = '$status'
-              WHERE trolly_id = $trolly_id";
+    $query = "UPDATE trolly SET
+trolly_size = '$trolly_size',
+trolly_color = '$trolly_color',
+lastUpdate_date = NOW(),
+status = '$status'
+WHERE trolly_id = $trolly_id";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -713,7 +764,7 @@ function deleteTrolly($id)
 
     return mysqli_affected_rows($conn);
 }
-// Trolly function  End
+// Trolly function End
 
 function registerAccount($data)
 {
@@ -743,15 +794,15 @@ function registerAccount($data)
         $encrypted_password = password_hash($user_password, PASSWORD_DEFAULT);
 
         // Insert Into Database
-        $query = "INSERT INTO user 
-                  (user_password, user_phone, user_email, insert_date, lastUpdate_date)
-                  VALUES (
-                    '$encrypted_password',
-                    '$user_phone', 
-                    '$user_email', 
-                    NOW(),
-                    NOW()
-                    )";
+        $query = "INSERT INTO user
+(user_password, user_phone, user_email, insert_date, lastUpdate_date)
+VALUES (
+'$encrypted_password',
+'$user_phone',
+'$user_email',
+NOW(),
+NOW()
+)";
 
         // Execute Query
         mysqli_query($conn, $query);
@@ -775,7 +826,7 @@ function insertlocations($data)
 
         // Perhatikan penamaan kolom di dalam query
         $query_location = "INSERT INTO user_locations (user_id, user_location, user_phone_location, user_username_location)
-                        VALUES ('$user_id', '$location_receiver', '$phone_location_receiver', '$username_location_receiver')";
+VALUES ('$user_id', '$location_receiver', '$phone_location_receiver', '$username_location_receiver')";
 
         // Execute Query untuk menambahkan lokasi
         mysqli_query($conn, $query_location);
@@ -887,7 +938,7 @@ function deleteLocation($id)
 
 // Location End
 
-// Multi Img Product 
+// Multi Img Product
 function deleteproductMultiImg($id)
 {
     global $conn;
@@ -969,7 +1020,9 @@ function upload($input_name)
 
     // Validasi ekstensi gambar
     if (!in_array($extensiGambar, $extensiGambarValid)) {
-        echo "<script>alert('Yang Anda Upload Bukan Gambar');</script>";
+        echo "<script>
+    alert('Yang Anda Upload Bukan Gambar');
+</script>";
         return false;
     }
 
@@ -978,7 +1031,9 @@ function upload($input_name)
     $batas_ukuran = 60000000; // 60 MB
 
     if ($ukuran_file > $batas_ukuran) {
-        echo "<script>alert('Ukuran Gambar Terlalu Besar');</script>";
+        echo "<script>
+    alert('Ukuran Gambar Terlalu Besar');
+</script>";
         return false;
     }
 
@@ -990,7 +1045,9 @@ function upload($input_name)
     if (move_uploaded_file($tmpName, $uploadPath)) {
         return $namaFilebaru;
     } else {
-        echo "<script>alert('Gagal mengunggah gambar');</script>";
+        echo "<script>
+    alert('Gagal mengunggah gambar');
+</script>";
         return false;
     }
 }
@@ -1012,15 +1069,15 @@ function insertMultiImg($data)
 
     // Corrected SQL syntax: VALUES (not VALUE), and removed quotes around column names
     $query = "INSERT INTO other_product_img (product_id, product_img_1, product_img_2, product_img_3, insert_date, lastUpdate_date)
-              VALUES
-              (
-                '$product_id', 
-                '$product_img1', 
-                '$product_img2', 
-                '$product_img3', 
-                NOW(), 
-                NOW()
-              )";
+VALUES
+(
+'$product_id',
+'$product_img1',
+'$product_img2',
+'$product_img3',
+NOW(),
+NOW()
+)";
 
     try {
         mysqli_query($conn, $query);
@@ -1071,13 +1128,13 @@ function UpdateMultiImg($data)
 
     // Corrected SQL syntax: VALUES (not VALUE), and removed quotes around column names
     $query = "UPDATE other_product_img SET
-             product_id = '$product_id',
-             product_img_1 = '$product_img1', 
-             product_img_2 = '$product_img2', 
-             product_img_3 = '$product_img3', 
-             lastUpdate_date = NOW()
-             WHERE product_id = '$product_id'
-             ";
+product_id = '$product_id',
+product_img_1 = '$product_img1',
+product_img_2 = '$product_img2',
+product_img_3 = '$product_img3',
+lastUpdate_date = NOW()
+WHERE product_id = '$product_id'
+";
 
     try {
         mysqli_query($conn, $query);
@@ -1088,3 +1145,38 @@ function UpdateMultiImg($data)
         return false;
     }
 }
+
+
+// Function Add to cart {
+
+function addtoCart($data)
+{
+    global $conn;
+
+    $productid = htmlspecialchars($data['product_id']);
+    $userid = htmlspecialchars($data['user_id']);
+    $order_note = htmlspecialchars($data['order_note']);
+    $order_quantity = htmlspecialchars($data['order_quantity']);
+
+    $query = "INSERT INTO order_cart (product_id ,user_id , order_note , order_quantity , insert_date, lastUpdate_date)
+
+VALUE (
+'$productid',
+'$userid',
+'$order_note',
+'$order_quantity',
+NOW(),
+NOW()
+) ";
+
+    try {
+        mysqli_query($conn, $query);
+        return mysqli_affected_rows($conn);
+    } catch (mysqli_sql_exception $e) {
+        // Print SQL error message for debugging
+        echo "SQL Error: " . $e->getMessage();
+        return false;
+    }
+}
+
+// }
