@@ -91,7 +91,7 @@
 
   ?>
   <main>
-    <section class="cart mt-32">
+    <section class="cart xl:mt-32 md:mt-28 mt-20">
       <div class="container flex flex-col gap-6">
         <div class="breadcrumb font-semibold">
           <ul class="flex gap-4 items-center md:text-base text-sm">
@@ -210,9 +210,9 @@
                 </div>
               <?php endforeach; ?>
             <?php else : ?>
-              <div class="cart-item bg-white lg:p-5 p-3 h-[145px] flex flex-col justify-center items-center shadow-sm">
+              <div class="cart-item bg-white lg:p-5 p-3 3xl:h-[145px] xl:h-[170px] md:h-[120px] h-[60px] flex flex-col justify-center items-center shadow-sm">
                 <div class="flex md:gap-6 gap-4 items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart-off">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart-off">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
                     <path d="M17 17a2 2 0 1 0 2 2" />
@@ -296,21 +296,39 @@
                 </div>
                 <div class="accordion-body bg-white shadow-sm">
                   <div class="content-wrapper py-4 px-4">
-                    <div class="wrapper flex flex-col gap-4">
-                      <div class="xl:h-[250px] h-[150px] overflow-y-auto flex flex-col gap-3 cart-container">
-                        <!-- Cart items will be dynamically loaded here -->
+                    <?php if (!empty($showAddedItem)) : ?>
+                      <div class="wrapper flex flex-col gap-4">
+                        <div class="xl:h-[300px] h-[150px] overflow-y-auto flex flex-col gap-3 cart-container">
+                          <!-- Cart items will be dynamically loaded here -->
+                        </div>
+                        <hr>
+                        <span class="flex justify-between">
+                          <h6 class="lg:text-base text-sm">Ongkir</h6>
+                          <h6 class="lg:text-base text-sm">Rp -</h6>
+                        </span>
+                        <span class="flex justify-between">
+                          <h6 class="lg:text-base text-sm">Total Belanja</h6>
+                          <h6 id="totalBelanja" class="lg:text-base text-sm">Rp. -</h6>
+                        </span>
+                        <a id="checkoutToggle" class="bg-blue-Neru text-center  lg:p-2 py-2 px-2 text-white font-semibold rounded-md lg:text-base text-sm triggerBox cursor-pointer" type="button">Checkout Now </a>
                       </div>
-                      <hr>
-                      <span class="flex justify-between">
-                        <h6 class="lg:text-base text-sm">Ongkir</h6>
-                        <h6 class="lg:text-base text-sm">Rp2000</h6>
-                      </span>
-                      <span class="flex justify-between">
-                        <h6 class="lg:text-base text-sm">Total Belanja</h6>
-                        <h6 id="totalBelanja" class="lg:text-base text-sm">Rp. -</h6>
-                      </span>
-                      <a id="checkoutToggle" class="bg-blue-Neru text-center lg:p-2 py-2 px-2 text-white font-semibold rounded-md lg:text-base text-sm triggerBox cursor-pointer" type="button">Checkout Now </a>
-                    </div>
+                    <?php else : ?>
+                      <div class="wrapper flex flex-col gap-4">
+                        <div class="h-10 overflow-y-auto flex flex-col justify-center gap-3 cart-container">
+                          <!-- Cart items will be dynamically loaded here -->
+                        </div>
+                        <hr>
+                        <span class="flex justify-between">
+                          <h6 class="lg:text-base text-sm">Ongkir</h6>
+                          <h6 class="lg:text-base text-sm">Rp.-</h6>
+                        </span>
+                        <span class="flex justify-between">
+                          <h6 class="lg:text-base text-sm">Total Belanja</h6>
+                          <h6 id="totalBelanja" class="lg:text-base text-sm">Rp. -</h6>
+                        </span>
+                        <a id="checkoutToggle" class="bg-blue-Neru text-center   lg:p-2 py-2 px-2 text-white font-semibold rounded-md lg:text-base text-sm triggerBox cursor-pointer" type="button">Checkout Now </a>
+                      </div>
+                    <?php endif; ?>
                   </div>
                 </div>
               </div>
@@ -354,7 +372,7 @@
               <div class="flex justify-between items-center">
                 <h6 class="md:text-base font-semibold text-xs capitalize">Ringkasan Belanja</h6>
               </div>
-              <div class="body flex flex-col gap-4 h-[180px] overflow-y-auto">
+              <div class="body flex flex-col gap-4 max-h-[180px] overflow-y-auto">
                 <?php
                 $totalBelanja = 0; // Inisialisasi total belanja
                 foreach ($showAddedItem as $cartDetails) :
@@ -489,7 +507,7 @@
     var prod_id = $(this).closest('.product_data').find('.prodId').val();
 
     $.ajax({
-      url: 'function.php',
+      url: 'update_data_cart.php',
       method: "POST",
       data: {
         'order_id': prod_id,
@@ -517,7 +535,7 @@
           totalBelanja += subtotal;
           cartHtml += `
             <span class="flex flex-col gap-1.5 justify-between">
-              <h6 class="lg:text-base text-sm">Item Name : ${item.product_name}</h6>
+              <h6 class="lg:text-base text-sm line-clamp-2">Item Name : ${item.product_name}</h6>
               <span class="flex gap-1 items-center">
                 <h6 class="lg:text-base text-sm">Product Price : Rp.${new Intl.NumberFormat('id-ID').format(item.product_price)} X</h6>
                 <input class="w-[30px] h-[30px] outline-none" type="number" readonly value="${item.order_quantity}">

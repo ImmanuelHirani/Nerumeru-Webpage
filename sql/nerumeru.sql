@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2024 at 11:20 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: May 21, 2024 at 01:22 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -129,8 +129,7 @@ CREATE TABLE `herosection` (
 --
 
 INSERT INTO `herosection` (`hero_id`, `hero_title1`, `hero_title2`, `hero_title3`, `hero_subtitle`, `hero_button1`, `hero_button2`, `hero_img`, `insert_date`, `lastUpdate_date`, `status`) VALUES
-(35, 'Creating Happy Moments With Your Pets', 'Love And Care For Your Pets', 'Discover The Joy Of Pet Companionship', 'Providing Top-Quality Solutions For Pet Lovers\r\nWith Innovative , And High-Quality Products\r\nDesigned For Pets And Their Owners.', 'Explore Now', 'Shop Collection', '65c02ba40bc93.png', '2024-02-06 20:49:58', '2024-02-06 20:49:58', 0),
-(36, 'Creating Happy Moments With Your Pets', 'Love And Care For Your Pets', 'Discover The Joy Of Pet Companionship', 'Providing Top-Quality Solutions For Pet Lovers\r\nWith Innovative , And High-Quality Products\r\nDesigned For Pets And Their Owners.', 'Explore Now', 'Shop Collection', 'Hero-Section.png', '2024-02-06 20:50:17', '2024-02-06 20:50:17', 1);
+(36, 'Creating Happy Moments With Your Pets', 'Love And Care For Your Pets', 'Discover The Joy Of Pet Companionship', 'Providing Top-Quality Solutions For Pet Lovers\r\nWith Innovative , And High-Quality Products\r\nDesigned For Pets And Their Owners.', 'Explore Now', 'Shop Collection', 'Hero-Section.png', '2024-05-18 21:48:40', '2024-05-18 21:48:40', 1);
 
 -- --------------------------------------------------------
 
@@ -185,6 +184,31 @@ CREATE TABLE `order` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `order_cart`
+--
+
+CREATE TABLE `order_cart` (
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `order_quantity` int(100) NOT NULL,
+  `order_note` varchar(200) NOT NULL,
+  `insert_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `lastUpdate_date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `order_cart`
+--
+
+INSERT INTO `order_cart` (`order_id`, `user_id`, `product_id`, `order_quantity`, `order_note`, `insert_date`, `lastUpdate_date`) VALUES
+(65, 10, 16, 5, 'awdawdawdaw', '2024-05-18 22:31:34', '2024-05-18 22:31:34'),
+(66, 10, 26, 4, 'awdwad', '2024-05-18 22:32:52', '2024-05-18 22:32:52'),
+(105, 9, 16, 2, '', '2024-05-21 18:20:47', '2024-05-21 18:20:47');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `order_details`
 --
 
@@ -202,6 +226,32 @@ CREATE TABLE `order_details` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `other_product_img`
+--
+
+CREATE TABLE `other_product_img` (
+  `img_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_img_1` varchar(100) NOT NULL,
+  `product_img_2` varchar(100) NOT NULL,
+  `product_img_3` varchar(100) NOT NULL,
+  `status_multiImg` tinyint(1) NOT NULL,
+  `insert_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `lastUpdate_date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `other_product_img`
+--
+
+INSERT INTO `other_product_img` (`img_id`, `product_id`, `product_img_1`, `product_img_2`, `product_img_3`, `status_multiImg`, `insert_date`, `lastUpdate_date`) VALUES
+(15, 4, '6638282193bf0.jpg', '6638282193f78.png', '66382821940c3.jpg', 1, '2024-04-27 13:55:38', '2024-05-06 07:45:21'),
+(17, 1, '6634cf90148e2.png', '6634cf9014a84.jpg', '6634cf9014dc7.png', 1, '2024-05-03 18:50:40', '2024-05-03 18:50:40'),
+(18, 15, '66382a7ac04d9.jpg', '66382a7ac07bf.jpg', '66382a7ac09e9.png', 1, '2024-05-06 07:55:22', '2024-05-06 07:55:22');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product`
 --
 
@@ -210,9 +260,10 @@ CREATE TABLE `product` (
   `product_img` varchar(500) NOT NULL,
   `product_type` varchar(100) NOT NULL,
   `product_name` varchar(100) NOT NULL,
-  `product_stock` int(11) NOT NULL,
+  `product_categories` varchar(100) NOT NULL,
+  `product_stock` int(100) NOT NULL,
   `product_color` varchar(100) NOT NULL,
-  `product_price` int(11) NOT NULL,
+  `product_price` int(100) NOT NULL,
   `product_specification` varchar(2000) NOT NULL,
   `product_weight` varchar(100) NOT NULL,
   `product_warranty` varchar(500) NOT NULL,
@@ -226,11 +277,19 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_img`, `product_type`, `product_name`, `product_stock`, `product_color`, `product_price`, `product_specification`, `product_weight`, `product_warranty`, `product_rating`, `insert_date`, `lastUpdate_date`, `status`) VALUES
-(1, '65f1598a26cf4.jpg', 'Bedding', 'Neru Arch - Tempat Tidur Kasur Kucing Anjing Peliharaan', 5, 'Silver Grey', 485000, 'NeruArch - NeruMeru Non-Waterproof series\r\nProduct Sizel: 75 x 55 cm\r\n\r\nSangat nyaman untuk tidur hewan kesayangan anda.\r\nFavorit para anjing maupun kucing, terdapat bantal dipinggiran untuk kenyamanan hewan peliharaan anda.\r\n\r\nSpefisikasi:\r\n- Synthetic Goosedown (Bulu angsa sintetis) &amp; Dacron\r\n- Antislip\r\n- Detachable pillow\r\n- Machine washable\r\n- Reversed Zipper\r\n\r\nTersedia versi Waterproof pada etalase lain', '1kg', '1 Year (Foam, 20% Deflated) - 1 year warranty for inner foam if there is a 20% decrease', 5, '2024-02-25 00:00:00', '2024-03-13 14:45:14', 0),
-(2, '65e86b4e25d4c.png', 'Toys', 'Toys Stick', 123, 'Black', 0, 'asd', '123kg', '1 Year (Foam, 20% Deflated) - 1 year warranty for inner foam if there is a 20% decrease', 5, '2024-03-06 00:00:00', '2024-03-06 20:10:38', 1),
-(3, '65f15a5989673.jpg', 'Bedding', 'Neru Arch - Waterproof Kasur Anjing Kucing Anti Air', 5, 'Deep Blue', 485000, 'Neru Arch Waterproof Version\r\nKasur yang sangat nyaman untuk hewan peliharaan anda, dilengkapi dengan bantal pinggiran bisa untuk headrest\r\nUkuran total: 75 x 55 cm\r\n\r\nFilling: Synthetic Goosedown\r\nRing Filling: Sillicon\r\nAntislip Pad\r\nDetachable Pillow\r\nReversed Zipper', '1kg', '1 Year (Foam, 20% Deflated) - 1 year warranty for inner foam if there is a 20% decrease', 5, '2024-03-13 14:48:41', '2024-03-13 14:48:41', 0),
-(4, '65f15af6aa239.jpg', 'Bedding', 'Neru Meru - Neru Takeshi - Orthopedic Pet Bed Kasur Anjing Kucing', 5, 'Mellow Rose', 850000, 'Neru Takeshi Ukuran 80x60 cm, tinggi dinding 10 cm\r\nNeru Meru - Neru Takeshi adalah kasur ortopedik khusus hewan peliharaan\r\n\r\nFoam Specification :\r\n3 cm Soft Memory Foam (White)\r\n5 cm Medium Support Foam (Yellow)\r\n\r\nInner Fabric : Polyester Cotton (Dark Grey)\r\nWater Resistant, Breathable, with Machine Washable Cover\r\n\r\nOuter Fabric : Premium Fabric made of Polyester, Super Tough, Comfortable, Soft with Machine Washable Cover and Anti Slip Fabric\r\n\r\nZipper :\r\nYKK (Middle-Inner)\r\nYKK (Under-Outer)\r\n\r\nColor Variant :\r\n1. Silver Grey\r\n2. Smoky Grey\r\n3. Icy Blue\r\n4. Mellow Rose\r\n5. Blazing Yellow\r\n6. Marina\r\n7. Tree Top\r\n8. Lava Smoke\r\n9. Nimbus Cloud\r\n10. Nautical Blue\r\n\r\nWarranty : 1 Year (Foam, 20% Deflated) - Garansi 1 tahun untuk foam dalam apabila ada penurunan 20%\r\n\r\nPERHATIAN:\r\nAda pertanyaan atau butuh info detail lainnya, klik Chat Tokopedia for fast response.\r\nPerhatikan pilihan warna, ukuran dan varian barang sebelum check-out. Karena, akan kami kirimkan berdasarkan pesanan Anda.\r\nHappy shopping dan terima kasih\r\nLihat Lebih Sedikit', '1kg', '1 Year (Foam, 20% Deflated) - 1 year warranty for inner foam if there is a 20% decrease', 5, '2024-03-13 14:51:18', '2024-03-13 14:51:18', 0);
+INSERT INTO `product` (`product_id`, `product_img`, `product_type`, `product_name`, `product_categories`, `product_stock`, `product_color`, `product_price`, `product_specification`, `product_weight`, `product_warranty`, `product_rating`, `insert_date`, `lastUpdate_date`, `status`) VALUES
+(1, '6639f9cd50bb2.jpg', 'Bedding', 'Neru Arch - Waterproof Kasur Anjing Kucing Anti Air - Turquoise', 'Neru One', 5, 'Silver Grey', 485000, 'NeruArch - NeruMeru Non-Waterproof series\r\nProduct Sizel: 75 x 55 cm\r\n\r\nSangat nyaman untuk tidur hewan kesayangan anda.\r\nFavorit para anjing maupun kucing, terdapat bantal dipinggiran untuk kenyamanan hewan peliharaan anda.\r\n\r\nSpefisikasi:\r\n- Synthetic Goosedown (Bulu angsa sintetis) &amp; Dacron\r\n- Antislip\r\n- Detachable pillow\r\n- Machine washable\r\n- Reversed Zipper\r\n\r\nTersedia versi Waterproof pada etalase lain', '1kg', '1 Year (Foam, 20% Deflated) - 1 year warranty for inner foam if there is a 20% decrease', 5, '2024-02-25 00:00:00', '2024-05-07 21:01:48', 1),
+(4, '65f15af6aa239.jpg', 'Bedding', 'Orthopedic Pet Bed Kasur Anjing Kucing - Neru Meru - Neru Takeshi - Smoky Grey', 'Neru One', 5, 'Smokey Grey', 850000, 'Neru Takeshi Ukuran 80x60 cm, tinggi dinding 10 cm\r\nNeru Meru - Neru Takeshi adalah kasur ortopedik khusus hewan peliharaan\r\n\r\nFoam Specification :\r\n3 cm Soft Memory Foam (White)\r\n5 cm Medium Support Foam (Yellow)\r\n\r\nInner Fabric : Polyester Cotton (Dark Grey)\r\nWater Resistant, Breathable, with Machine Washable Cover\r\n\r\nOuter Fabric : Premium Fabric made of Polyester, Super Tough, Comfortable, Soft with Machine Washable Cover and Anti Slip Fabric\r\n\r\nZipper :\r\nYKK (Middle-Inner)\r\nYKK (Under-Outer)\r\n\r\nColor Variant :\r\n1. Silver Grey\r\n2. Smoky Grey\r\n3. Icy Blue\r\n4. Mellow Rose\r\n5. Blazing Yellow\r\n6. Marina\r\n7. Tree Top\r\n8. Lava Smoke\r\n9. Nimbus Cloud\r\n10. Nautical Blue\r\n\r\nWarranty : 1 Year (Foam, 20% Deflated) - Garansi 1 tahun untuk foam dalam apabila ada penurunan 20%\r\n\r\nPERHATIAN:\r\nAda pertanyaan atau butuh info detail lainnya, klik Chat Tokopedia for fast response.\r\nPerhatikan pilihan warna, ukuran dan varian barang sebelum check-out. Karena, akan kami kirimkan berdasarkan pesanan Anda.\r\nHappy shopping dan terima kasih\r\nLihat Lebih Sedikit', '1kg', '1 Year (Foam, 20% Deflated) - 1 year warranty for inner foam if there is a 20% decrease', 5, '2024-03-13 14:51:18', '2024-05-07 21:02:49', 1),
+(15, '663829e0aa2a3.png', 'Bedding', 'Neru Three - Orthopedic Dog Cat Pet Bed - Kasur Anjing - Neru Meru - Smoky Grey', 'Neru Two', 100, 'Smokey Grey', 200000, 'Neru Takeshi Ukuran 80x60 cm, tinggi dinding 10 cm\r\nNeru Meru - Neru Takeshi adalah kasur ortopedik khusus hewan peliharaan\r\n\r\nFoam Specification :\r\n3 cm Soft Memory Foam (White)\r\n5 cm Medium Support Foam (Yellow)\r\n\r\nInner Fabric : Polyester Cotton (Dark Grey)\r\nWater Resistant, Breathable, with Machine Washable Cover\r\n\r\nOuter Fabric : Premium Fabric made of Polyester, Super Tough, Comfortable, Soft with Machine Washable Cover and Anti Slip Fabric\r\n\r\nZipper :\r\nYKK (Middle-Inner)\r\nYKK (Under-Outer)\r\n\r\nColor Variant :\r\n1. Silver Grey\r\n2. Smoky Grey\r\n3. Icy Blue\r\n4. Mellow Rose\r\n5. Blazing Yellow\r\n6. Marina\r\n7. Tree Top\r\n8. Lava Smoke\r\n9. Nimbus Cloud\r\n10. Nautical Blue\r\n\r\nWarranty : 1 Year (Foam, 20% Deflated) - Garansi 1 tahun untuk foam dalam apabila ada penurunan 20%\r\n\r\nPERHATIAN:\r\nAda pertanyaan atau butuh info detail lainnya, klik Chat Tokopedia for fast response.\r\nPerhatikan pilihan warna, ukuran dan varian barang sebelum check-out. Karena, akan kami kirimkan berdasarkan pesanan Anda.\r\nHappy shopping dan terima kasih\r\nLihat Lebih Sedikit', 'Customizeable', '1 Year (Foam, 20% Deflated) - 1 year warranty for inner foam if there is a 20% decrease', 5, '2024-05-06 07:52:48', '2024-05-07 21:05:48', 1),
+(16, '6639f1a2a1c5f.png', 'Toys', 'Neru Long Stick', 'Neru Stick', 20, 'Multi Color', 50000, 'NeruArch - NeruMeru Non-Waterproof series\r\nProduct Sizel: 75 x 55 cm\r\n\r\nSangat nyaman untuk tidur hewan kesayangan anda.\r\nFavorit para anjing maupun kucing, terdapat bantal dipinggiran untuk kenyamanan hewan peliharaan anda.\r\n\r\nSpefisikasi:\r\n- Synthetic Goosedown (Bulu angsa sintetis) &amp; Dacron\r\n- Antislip\r\n- Detachable pillow\r\n- Machine washable\r\n- Reversed Zipper\r\n\r\nTersedia versi Waterproof pada etalase lain', '50g', '1 Year (Foam, 20% Deflated) - 1 year warranty for inner foam if there is a 20% decrease', 4, '2024-05-07 16:17:22', '2024-05-07 21:11:24', 1),
+(17, '6639f22e9cf3b.png', 'Toys', 'Neru Ring - Sunshine Yellow', 'Neru Ring', 20, 'Yellow Sunshine', 20000, 'NeruArch - NeruMeru Non-Waterproof series\r\nProduct Sizel: 75 x 55 cm\r\n\r\nSangat nyaman untuk tidur hewan kesayangan anda.\r\nFavorit para anjing maupun kucing, terdapat bantal dipinggiran untuk kenyamanan hewan peliharaan anda.\r\n\r\nSpefisikasi:\r\n- Synthetic Goosedown (Bulu angsa sintetis) &amp; Dacron\r\n- Antislip\r\n- Detachable pillow\r\n- Machine washable\r\n- Reversed Zipper\r\n\r\nTersedia versi Waterproof pada etalase lain', '20g', '1 Year (Foam, 20% Deflated) - 1 year warranty for inner foam if there is a 20% decrease', 2, '2024-05-07 16:19:42', '2024-05-07 20:59:08', 1),
+(18, '6639f533b289e.jpg', 'Toys', 'Neru ball - rounded Blackstar', 'Neru Ring', 20, 'All Type Of color', 200000, 'NeruArch - NeruMeru Non-Waterproof series\r\nProduct Sizel: 75 x 55 cm\r\n\r\nSangat nyaman untuk tidur hewan kesayangan anda.\r\nFavorit para anjing maupun kucing, terdapat bantal dipinggiran untuk kenyamanan hewan peliharaan anda.\r\n\r\nSpefisikasi:\r\n- Synthetic Goosedown (Bulu angsa sintetis) &amp; Dacron\r\n- Antislip\r\n- Detachable pillow\r\n- Machine washable\r\n- Reversed Zipper\r\n\r\nTersedia versi Waterproof pada etalase lain', '250g', 'awdawdawd', 1, '2024-05-07 16:32:35', '2024-05-07 21:02:11', 1),
+(19, '6639f568b9947.jpg', 'Toys', 'Neru Longest Stick Ever', 'Neru Ball', 200, 'All Type Of color', 400000, 'NeruArch - NeruMeru Non-Waterproof series\r\nProduct Sizel: 75 x 55 cm\r\n\r\nSangat nyaman untuk tidur hewan kesayangan anda.\r\nFavorit para anjing maupun kucing, terdapat bantal dipinggiran untuk kenyamanan hewan peliharaan anda.\r\n\r\nSpefisikasi:\r\n- Synthetic Goosedown (Bulu angsa sintetis) &amp; Dacron\r\n- Antislip\r\n- Detachable pillow\r\n- Machine washable\r\n- Reversed Zipper\r\n\r\nTersedia versi Waterproof pada etalase lain', '100g', '23124', 3, '2024-05-07 16:33:28', '2024-05-07 21:11:16', 1),
+(20, '6639f58857c6a.jpg', 'Bedding', 'Neru Petite - Orthopedic Dog Cat Pet Bed - Kasur Anjing - Neru Meru - Icy Blue', 'Neru Two', 50, 'Icy blue', 509000, 'Kondisi: Baru\r\nWaktu Preorder: 3 Hari\r\nMin. Pemesanan: 1 Buah\r\nEtalase: Tempat Tidur Hewan\r\nNeru Petite - Orthopedic pet bed\r\nKasur size 60x40x8cm\r\nInclude 1 Pillow\r\n\r\nTerdiri dari 2 cover:\r\n- Outer cover (Polyester)\r\n- Inner cover (Waterproof)\r\n\r\nSpesifikasi:\r\nMemory foam 3cm\r\nSupport foam 5cm\r\n\r\nJapan technology\r\nSemua cover dapat dilepas dan cuci menggunakan mesin cuci\r\nFoam tidak dapat dicuci\r\n\r\nCocok untuk hewan peliharaan dibawah 4kg\r\n\r\nGaransi 1 Tahun untuk foam jiga kempes sebesar 20%', '2kg', 'Garansi 1 Tahun untuk foam jiga kempes sebesar 20%', 4, '2024-05-07 16:34:00', '2024-05-07 21:06:02', 1),
+(23, '6639f8991bd34.png', 'Bedding', 'Neru Meru - Tempat Tidur Kasur Anjing Kucing Peliharaan - Neru Two - Tree Top', 'Neru Two', 200, 'Tree Top', 699000, 'Neru Two - Orthopedic Pet Bed Kasur Peliharaan untuk Anjing Kucing\r\nProduct Size : Small (80 cm x 60 cm x 8 cm)\r\nInclude Pillow 2pcs\r\n\r\nFoam Specification :\r\n3 cm Soft Memory Foam (White)\r\n5 cm Medium Support Foam (Yellow)', '500g', 'Warranty : 1 Year (Foam, 20% Deflated) - Garansi 1 tahun untuk foam dalam apabila ada penurunan foam sebesar 20%', 3, '2024-05-07 16:45:33', '2024-05-07 21:06:15', 1),
+(24, '6647290af0752.jpg', 'Bedding', 'Neru Three Item Double Injections', 'Neru One', 20, 'Pink', 200000, 'bagus', '20g', 'Pasti kembali kalo jelek', 4, '2024-05-17 16:53:14', '2024-05-17 16:53:14', 1),
+(25, '664729492f00b.png', 'Toys', 'Neru Ring 2', 'Neru Ring', 20, 'Yellow', 200000, 'Bagus Aja', '500g', 'Pasti kembali kalo jelek', 4, '2024-05-17 16:54:17', '2024-05-17 16:54:17', 1),
+(26, '664729ae91856.png', 'Toys', 'Neru Stick 4', 'Neru Stick', 20, 'Multi Color', 50000, 'Bagus Aja yang ini ih kek nya', '2000g', 'Pasti kembali klao jelek', 4, '2024-05-17 16:55:58', '2024-05-17 16:55:58', 1);
 
 -- --------------------------------------------------------
 
@@ -253,11 +312,11 @@ CREATE TABLE `recommendsection` (
 --
 
 INSERT INTO `recommendsection` (`recommend_id`, `recommend_img`, `recommend_title`, `recommend_targetLink`, `status`, `insert_date`, `lastupdate_date`) VALUES
-(1, 'Group 39632.png', 'NERU BEDDIN', 'dawdaw', 1, '2024-02-16 09:06:16', '2024-02-16 09:06:16'),
-(3, 'card-item5.png', 'NERU SANITIZE', '', 1, '2024-02-08 12:40:25', '2024-02-08 12:40:25'),
-(4, 'card-item-6.png', 'NERU TROLLY', '', 1, '2024-02-08 12:40:45', '2024-02-08 12:40:45'),
-(6, 'card-item3.png', 'NERU PILLOW', '', 1, '2024-02-08 12:41:40', '2024-02-08 12:41:40'),
-(9, 'card-item-2.png', 'Toys', '', 1, '2024-02-08 14:50:08', '2024-02-08 14:50:08');
+(1, '663a32163f6d9.png', 'NERU BEDDING', 'bedding.php', 1, '2024-05-07 20:52:22', '2024-05-07 20:52:22'),
+(3, 'card-item5.png', 'NERU SANITIZE', 'sanitize.php', 1, '2024-04-12 10:14:00', '2024-04-12 10:14:00'),
+(4, 'card-item-6.png', 'NERU TROLLY', 'trolly.php', 1, '2024-04-12 10:13:24', '2024-04-12 10:13:24'),
+(6, 'card-item3.png', 'NERU PILLOW', 'pillow.php', 1, '2024-04-12 10:13:38', '2024-04-12 10:13:38'),
+(9, 'card-item-2.png', 'Toys', 'toys.php', 1, '2024-04-12 10:13:54', '2024-04-12 10:13:54');
 
 -- --------------------------------------------------------
 
@@ -318,9 +377,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_username`, `user_email`, `user_phone`, `user_password`, `user_img`, `insert_date`, `lastUpdate_date`) VALUES
-(3, 'Immanuel Christian hirani', 'nuel.hirani8@gmail.com', '081314801945', '$2y$10$icJdeiaQgeTZl.kOQobrgOt3li5iV3bXmh3PFai7m.7ExfxolO3qq', '65d8464fdc387.png', '2024-02-23 11:32:06', '2024-02-25 13:09:24'),
-(5, 'Rafael', 'rafael@gmail.com', '1982329128793', '$2y$10$ARpA5mO7gTQe.5ln7FWuOuOydb/.ZKyQga4CXplCE3ojkzPDEqIYO', '65d8b0610330d.png', '2024-02-23 21:45:15', '2024-02-23 21:49:05'),
-(6, 'Fahrezza', 'eja@gmail.com', '0813418801482', '$2y$10$BJix/pdWJCsxV64.TtXnweWjqdXZNIQm9TttZdcikgYTSfpj2r232', '65d9320ed4071.jpg', '2024-02-24 07:01:48', '2024-02-24 07:02:22');
+(9, 'Immanuel Christian Hirani', 'nuel.hirani8@gmail.com', '081314801945', '$2y$10$kzu1FEPrTNavW3BKJ7/bMu7nnQK5qhIY0OaohtEUun5rdR5S9APeq', '6616725fa9b4c.jpeg', '2024-04-05 17:14:26', '2024-04-20 07:06:06'),
+(10, 'Nathania', 'ela@gmail.com', '087788462255', '$2y$10$MUifwX3LLXUojaEYVrCYROQHVcfAxRfPFZ9CMVZ1HcATqpgz4dhZ2', '6618b24e4848f.png', '2024-04-12 10:29:48', '2024-04-12 11:02:29');
 
 -- --------------------------------------------------------
 
@@ -342,9 +400,7 @@ CREATE TABLE `user_locations` (
 --
 
 INSERT INTO `user_locations` (`id`, `user_id`, `user_location`, `user_phone_location`, `user_username_location`, `status`) VALUES
-(14, 6, ' Jl. Kakap Raya No.155, RT.001/RW.003, Karawaci Baru, Kec. Karawaci, Kota Tangerang, Banten 15116', '081314801945', 'Immanuel Chrsristian Hirani', 0),
-(15, 3, 'Jl. Jenderal Sudirman No.1, Cikokol, Kec. Tangerang, Kota Tangerang, Banten 15117', '081119287116', 'Rafael Victor Christian ', 0),
-(16, 3, ' Jl. Kakap Raya No.155, RT.001/RW.003, Karawaci Baru, Kec. Karawaci, Kota Tangerang, Banten 15116', '081314801945', 'Immanuel Hirani', 1);
+(25, 9, 'Jalan M.H. Thamrin Boulevard No.1100, Klp. Dua, Kec. Klp. Dua, Kabupaten Tangerang, Banten 15811', '087788452368', 'Habib Sagas', 1);
 
 -- --------------------------------------------------------
 
@@ -367,7 +423,7 @@ CREATE TABLE `whyus` (
 --
 
 INSERT INTO `whyus` (`whyus_id`, `whyus_img`, `whyus_title`, `whyus_subtitle`, `status`, `insert_date`, `lastUpdate_date`) VALUES
-(1, 'Orthopendic.png', 'Water Resistance Inner Cover', 'The Inner Layer Of NeruMeru Bed Cover Is Made Of Water Ressistant That Helps Protect Your Bed From Spills And Dirt.', 1, '2024-02-06 20:51:00', '2024-02-06 20:51:00'),
+(1, '663a33177ebda.png', 'Water Resistance Inner Cover', 'The Inner Layer Of NeruMeru Bed Cover Is Made Of Water Ressistant That Helps Protect Your Bed From Spills And Dirt.', 1, '2024-05-07 20:56:39', '2024-05-07 20:56:39'),
 (3, 'Washing mechine.png', 'Easy To Wash', 'Developed With Easy To Wash Design And Material. If Get It Dirty, You Can Easily Wash It With Washing Machine.', 1, '2024-02-06 20:52:30', '2024-02-06 20:52:30'),
 (4, 'Dog.png', 'Orthopedic &amp; Japan Technology', 'Developed With Japan Technology &amp; Orthopedic Best Quality Material For Long-Lasting Durability To Provide Your Pet With A Better Sleep.', 1, '2024-02-06 20:52:51', '2024-02-06 20:52:51'),
 (11, 'Save-bio.png', 'ROHS Certifications', 'ROHS Certification Limits Hazardous Substances (E.G., Lead, Mercury, Hexavalent Chromium, Cadmium) To Acceptable Levels.', 1, '2024-02-06 20:51:33', '2024-02-06 20:51:33');
@@ -420,12 +476,27 @@ ALTER TABLE `order`
   ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `order_cart`
+--
+ALTER TABLE `order_cart`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `fk_idUser` (`user_id`),
+  ADD KEY `fk_product_id` (`product_id`);
+
+--
 -- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
   ADD UNIQUE KEY `user_id` (`user_id`),
   ADD UNIQUE KEY `user_id_2` (`user_id`),
   ADD UNIQUE KEY `order_id` (`order_id`),
+  ADD UNIQUE KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `other_product_img`
+--
+ALTER TABLE `other_product_img`
+  ADD PRIMARY KEY (`img_id`),
   ADD UNIQUE KEY `product_id` (`product_id`);
 
 --
@@ -488,7 +559,7 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT for table `bio`
 --
 ALTER TABLE `bio`
-  MODIFY `bio_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `bio_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `blog`
@@ -506,7 +577,7 @@ ALTER TABLE `custombed`
 -- AUTO_INCREMENT for table `herosection`
 --
 ALTER TABLE `herosection`
-  MODIFY `hero_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `hero_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `neru_event`
@@ -521,10 +592,22 @@ ALTER TABLE `order`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `order_cart`
+--
+ALTER TABLE `order_cart`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+
+--
+-- AUTO_INCREMENT for table `other_product_img`
+--
+ALTER TABLE `other_product_img`
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `recommendsection`
@@ -548,13 +631,13 @@ ALTER TABLE `trolly`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_locations`
 --
 ALTER TABLE `user_locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `whyus`
@@ -565,6 +648,19 @@ ALTER TABLE `whyus`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `order_cart`
+--
+ALTER TABLE `order_cart`
+  ADD CONSTRAINT `fk_idUser` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `other_product_img`
+--
+ALTER TABLE `other_product_img`
+  ADD CONSTRAINT `fk_other_product_img` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
 
 --
 -- Constraints for table `user_locations`
