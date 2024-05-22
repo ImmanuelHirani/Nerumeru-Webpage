@@ -189,8 +189,6 @@
                         <h6 class="text-xs lg:text-base md:text-sm">Berat Barang:
                           <?= htmlspecialchars($itemCart['product_weight']) ?>
                         </h6>
-
-
                         <span id="qty" class="flex gap-2 product_data">
                           <button name="decrement"
                             class="flex items-center justify-center w-6 h-6 text-sm text-white rounded-sm decrement updateQty bg-blue-Neru lg:w-10 md:w-6 lg:h-10 md:h-6 lg:text-base">-</button>
@@ -201,7 +199,6 @@
                           <button type="submit" name="increment "
                             class="flex items-center justify-center w-6 h-6 text-sm text-white rounded-sm increment updateQty bg-blue-Neru lg:w-10 md:w-6 lg:h-10 md:h-6 lg:text-base">+</button>
                         </span>
-
                         <h6 class="items-center hidden gap-1 text-xs text-green-500 lg:text-base md:text-sm lg:flex">
                           Tulis Catatan
                           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 lg:w-6" viewBox="0 0 24 24" stroke-width="2"
@@ -233,7 +230,7 @@
               <?php endforeach; ?>
             <?php else: ?>
               <div
-                class="cart-item bg-white lg:p-5 p-3 3xl:h-[145px] xl:h-[170px] md:h-[120px] h-[60px] flex flex-col justify-center items-center shadow-sm">
+                class="cart-item bg-white lg:p-5 p-3 3xl:h-[212px] xl:h-[170px] md:h-[120px] h-[60px] flex flex-col justify-center items-center shadow-sm">
                 <div class="flex items-center justify-center gap-4 md:gap-6">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -348,10 +345,10 @@
                         </span>
                         <span class="flex justify-between">
                           <h6 class="text-sm lg:text-base">Total Belanja</h6>
-                          <h6 id="totalBelanja" class="text-sm lg:text-base">Rp. -</h6>
+                          <h6 class="text-sm totalBelanja lg:text-base">Rp. -</h6>
                         </span>
                         <a id="checkoutToggle"
-                          class="px-2 py-2 text-sm font-semibold text-center text-white rounded-md cursor-pointer bg-blue-Neru lg:p-2 lg:text-base triggerBox"
+                          class="w-full px-2 py-2 text-sm font-semibold text-center text-white rounded-md cursor-pointer bg-blue-Neru lg:p-2 lg:text-base triggerBox"
                           type="button">Checkout Now </a>
                       </div>
                     <?php else: ?>
@@ -366,7 +363,7 @@
                         </span>
                         <span class="flex justify-between">
                           <h6 class="text-sm lg:text-base">Total Belanja</h6>
-                          <h6 id="totalBelanja" class="text-sm lg:text-base">Rp. -</h6>
+                          <h6 class="text-sm lg:text-base">Rp. -</h6>
                         </span>
                         <a id="checkoutToggle"
                           class="px-2 py-2 text-sm font-semibold text-center text-white rounded-md cursor-pointer bg-blue-Neru lg:p-2 lg:text-base triggerBox"
@@ -419,45 +416,47 @@
               <div class="flex items-center justify-between">
                 <h6 class="text-xs font-semibold capitalize md:text-base">Ringkasan Belanja</h6>
               </div>
-              <div class="body flex flex-col gap-4 max-h-[180px] overflow-y-auto">
-                <?php
-                $totalBelanja = 0; // Inisialisasi total belanja
-                foreach ($showAddedItem as $cartDetails):
-                  $subtotal = $cartDetails['product_price'] * $cartDetails['order_quantity'];
-                  $totalBelanja += $subtotal;
-                  ?>
-                  <hr>
-                  <div class="flex flex-col gap-1.5 justify-between">
-                    <h6 class="text-sm lg:text-base line-clamp-1"><?= $cartDetails['product_name'] ?></h6>
-                    <div class="flex gap-3 wrap-qunatity_total">
-                      <h6>Price : Rp.<?= number_format($cartDetails["product_price"], 0, ',', ',') ?></h6>
-                      <h6 class="text-red-500">X</h6>
-                      <h6>Qty : <?= $cartDetails['order_quantity'] ?></h6>
+              <div class="flex flex-col gap-4 body">
+                <?php if (!empty($showAddedItem)): ?>
+                  <div class="flex flex-col gap-4 wrapper">
+                    <div class="xl:h-[300px] h-[150px] overflow-y-auto flex flex-col gap-3 cart-container">
+                      <!-- Cart items will be dynamically loaded here -->
                     </div>
-                    <h6 class="text-sm lg:text-base">Subtotal : Rp.<?= number_format($subtotal, 0, ',', ',') ?></h6>
+                    <hr>
+                    <span class="flex justify-between">
+                      <h6 class="text-sm lg:text-base">Ongkir</h6>
+                      <h6 class="text-sm lg:text-base">Rp -</h6>
+                    </span>
+                    <span class="flex justify-between">
+                      <h6 class="text-sm lg:text-base">Total Belanja</h6>
+                      <h6 class="text-sm totalBelanja lg:text-base">Rp. -</h6>
+                    </span>
                   </div>
-                <?php endforeach; ?>
-                <hr>
+                <?php else: ?>
+                  <div class="flex flex-col gap-4 wrapper">
+                    <div class="flex flex-col justify-center h-10 gap-3 overflow-y-auto cart-container">
+                      <!-- Cart items will be dynamically loaded here -->
+                    </div>
+                    <hr>
+                    <span class="flex justify-between">
+                      <h6 class="text-sm lg:text-base">Ongkir</h6>
+                      <h6 class="text-sm lg:text-base">Rp.-</h6>
+                    </span>
+                    <span class="flex justify-between">
+                      <h6 class="text-sm lg:text-base">Total Belanja</h6>
+                      <h6 class="text-sm lg:text-base">Rp. -</h6>
+                    </span>
+
+                  </div>
+                <?php endif; ?>
+                <hr />
+                <div class="flex items-center justify-end">
+                  <a href="paymentWaitingList.php"
+                    class="w-full py-2 text-xs font-semibold text-center text-white capitalize rounded-lg rounded-t-none cursor-pointer md:text-sm px-9 bg-blue-Neru closeBox animate-pulse">Bayar</a>
+                </div>
               </div>
             </div>
-            <div class="flex flex-col gap-3 p-4">
-              <span class="flex justify-between font-semibold">
-                <h6 class="text-sm lg:text-base">Total Belanja</h6>
-                <?php if (!empty($showAddedItem)): ?>
-                  <h6 class="text-sm lg:text-base">Rp.<?= number_format($totalBelanja, 0, ',', '.') ?></h6>
-                <?php else: ?>
-                  <h6 class="text-sm lg:text-base">Rp.-</h6>
-                <?php endif; ?>
-              </span>
-            </div>
-            <hr />
-            <div class="flex items-center justify-end">
-              <a href="paymentWaitingList.php"
-                class="w-full py-2 text-xs font-semibold text-center text-white capitalize rounded-lg rounded-t-none cursor-pointer md:text-sm px-9 bg-blue-Neru closeBox animate-pulse">Bayar</a>
-            </div>
-          </div>
-        </div>
-        <!-- Checkout Selection Payment End -->
+            <!-- Checkout Selection Payment End -->
     </section>
     <?php include "layout/floatingButton.php" ?>
   </main>
@@ -582,14 +581,14 @@
           var subtotal = item.product_price * item.order_quantity;
           totalBelanja += subtotal;
           cartHtml += `
-            <span class="flex flex-col gap-1.5 justify-between">
+            <div class="flex flex-col gap-1.5 justify-between">
               <h6 class="text-sm lg:text-base line-clamp-2">Item Name : ${item.product_name}</h6>
               <span class="flex items-center gap-1">
                 <h6 class="text-sm lg:text-base">Product Price : Rp.${new Intl.NumberFormat('id-ID').format(item.product_price)} X</h6>
                 <input class="w-[30px] h-[30px] outline-none" type="number" readonly value="${item.order_quantity}">
               </span>
               <h6 class="text-sm lg:text-base">Subtotal: Rp. ${new Intl.NumberFormat('id-ID').format(subtotal)}</h6>
-            </span>
+            </div>
             <hr>`;
         });
 
@@ -601,7 +600,7 @@
         }
 
         $('.cart-container').html(cartHtml);
-        $('#totalBelanja').text('Rp. ' + new Intl.NumberFormat('id-ID').format(totalBelanja));
+        $('.totalBelanja').text('Rp. ' + new Intl.NumberFormat('id-ID').format(totalBelanja));
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.error('Error updating cart: ' + textStatus, errorThrown);

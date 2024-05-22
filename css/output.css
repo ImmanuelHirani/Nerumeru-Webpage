@@ -1326,28 +1326,12 @@ main {
   max-height: 0px;
 }
 
-.max-h-\[180px\] {
-  max-height: 180px;
-}
-
 .max-h-\[200px\] {
   max-height: 200px;
 }
 
 .max-h-screen {
   max-height: 100vh;
-}
-
-.max-h-36 {
-  max-height: 9rem;
-}
-
-.max-h-32 {
-  max-height: 8rem;
-}
-
-.max-h-\[150px\] {
-  max-height: 150px;
 }
 
 .w-1\/2 {
@@ -7211,10 +7195,6 @@ a.plyr__control:before {
     max-height: 540px;
   }
 
-  .xl\:max-h-\[300px\] {
-    max-height: 300px;
-  }
-
   .xl\:w-1\/2 {
     width: 50%;
   }
@@ -7474,12 +7454,12 @@ a.plyr__control:before {
     height: 120px;
   }
 
-  .\33xl\:h-\[145px\] {
-    height: 145px;
-  }
-
   .\33xl\:h-\[177px\] {
     height: 177px;
+  }
+
+  .\33xl\:h-\[212px\] {
+    height: 212px;
   }
 
   .\33xl\:h-\[370px\] {
