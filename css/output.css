@@ -1342,6 +1342,14 @@ main {
   max-height: 9rem;
 }
 
+.max-h-32 {
+  max-height: 8rem;
+}
+
+.max-h-\[150px\] {
+  max-height: 150px;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -7201,6 +7209,10 @@ a.plyr__control:before {
 
   .xl\:max-h-\[540px\] {
     max-height: 540px;
+  }
+
+  .xl\:max-h-\[300px\] {
+    max-height: 300px;
   }
 
   .xl\:w-1\/2 {
