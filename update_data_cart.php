@@ -5,12 +5,12 @@ include "function.php";
 function updateCart($data)
 {
     global $conn;
-    $idCart = $data["order_id"];
+    $idCart = $data["cart_id"];
     $quantity = $data['order_quantity'];
 
     $query = "UPDATE order_cart SET 
               order_quantity = ? 
-              WHERE order_id = ?";
+              WHERE cart_id = ?";
 
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "ii", $quantity, $idCart);

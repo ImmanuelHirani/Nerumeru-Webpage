@@ -6,9 +6,7 @@ const closeBox = document.querySelectorAll(".closeBox");
 const boxalamat = document.querySelector(".alamat-wrapper");
 const boxalamatParent = boxalamat.parentNode;
 const closeBoxFeatAlamat = document.querySelector(".closeBoxFeatUbahAlamat");
-const checkoutToggle = document.getElementById("checkoutToggle");
-const PaymentBox = document.getElementById("PaymentBox");
-const PaymentBoxParent = PaymentBox.parentNode;
+
 const UbahAlamatToggle = document.getElementById("UbahAlamatToggle-Feat");
 const FeatUbahAlamat = document.getElementById("Feat-UbahAlamat");
 
@@ -84,7 +82,8 @@ optionsCargoBox.forEach((option) => {
   option.addEventListener("click", () => {
     const teksElementDiAtas = pilihanCargo.previousElementSibling;
     if (teksElementDiAtas) {
-      teksElementDiAtas.querySelector(".infoKurir").textContent = option.innerText;
+      teksElementDiAtas.querySelector(".infoKurir").textContent =
+        option.innerText;
     }
   });
 });
@@ -95,25 +94,17 @@ closeBox.forEach((Otherclosebox) => {
   Otherclosebox.addEventListener("click", () => {
     boxalamat.classList.remove("box-Cart-active");
     boxalamatParent.classList.remove("box-parent-active");
-    checkoutToggle.classList.remove("active");
-    PaymentBox.classList.remove("box-Cart-active");
-    PaymentBoxParent.classList.remove("box-parent-active");
     document.body.classList.remove("overflow-hidden");
   });
-});
-
-checkoutToggle.addEventListener("click", () => {
-  checkoutToggle.classList.add("active");
-  PaymentBox.classList.add("box-Cart-active");
-  PaymentBoxParent.classList.add("box-parent-active");
-  document.body.classList.add("overflow-hidden");
 });
 
 // Radio Checkbox
 
 function handleRadioChange(selectedRadio) {
   // Menonaktifkan semua radio button kecuali yang dipilih
-  var allRadios = document.querySelectorAll('input[type="radio"][name="paymentMethod"]');
+  var allRadios = document.querySelectorAll(
+    'input[type="radio"][name="paymentMethod"]'
+  );
   allRadios.forEach(function (radio) {
     if (radio !== selectedRadio) {
       radio.checked = false;
@@ -121,7 +112,9 @@ function handleRadioChange(selectedRadio) {
   });
 
   // Menambahkan kelas aktif pada label yang terkait dengan radio yang dipilih
-  var labels = document.querySelectorAll('label[for="' + selectedRadio.id + '"]');
+  var labels = document.querySelectorAll(
+    'label[for="' + selectedRadio.id + '"]'
+  );
   labels.forEach(function (label) {
     label.classList.toggle("active-label", selectedRadio.checked);
   });

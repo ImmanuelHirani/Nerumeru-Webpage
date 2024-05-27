@@ -35,7 +35,7 @@ function deleteorderCart($id)
     global $conn;
 
 
-    $query = "DELETE FROM order_cart WHERE order_id = $id";
+    $query = "DELETE FROM order_cart WHERE cart_id = $id";
 
     mysqli_query($conn, $query);
 
@@ -65,25 +65,34 @@ function insertHero($data)
     $hero_button2 = htmlspecialchars($data["hero_button2"]);
     $status = $data["status"];
 
-    $query = "INSERT INTO herosection
-VALUES (
-'',
-'$hero_title1',
-'$hero_title2',
-'$hero_title3',
-'$hero_subtitle',
-'$hero_button1',
-'$hero_button2',
-'$hero_img',
-NOW(),
-NOW(),
-'$status'
-)";
-
+    $query = "INSERT INTO herosection (
+        hero_title1,
+        hero_title2,
+        hero_title3,
+        hero_subtitle,
+        hero_button1,
+        hero_button2,
+        hero_img,
+        insert_date,
+        lastUpdate_date,
+        status
+    ) VALUES (
+        '$hero_title1',
+        '$hero_title2',
+        '$hero_title3',
+        '$hero_subtitle',
+        '$hero_button1',
+        '$hero_button2',
+        '$hero_img',
+        NOW(),
+        NOW(),
+        '$status'
+    )";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
+
 
 
 
@@ -581,6 +590,12 @@ function insertProduct($data)
 {
     global $conn;
 
+    // Check if the 'gambar' file is uploaded
+    if (!isset($_FILES['gambar']) || $_FILES['gambar']['error'] !== UPLOAD_ERR_OK) {
+        echo "<script>alert('Please upload a valid image.');</script>";
+        return false;
+    }
+
     // Upload Gambar
     $product_img = upload('gambar');
     if (!$product_img) {
@@ -599,26 +614,37 @@ function insertProduct($data)
     $product_rating = htmlspecialchars($data["product_rating"]);
     $status = $data["status"];
 
-
-    $query = "INSERT INTO product
-VALUES (
-'',
-'$product_img',
-'$product_type',
-'$product_name',
-'$product_categories',
-'$product_stock',
-'$product_color',
-'$product_price',
-'$product_specification',
-'$product_weight',
-'$product_warranty',
-'$product_rating',
-NOW(),
-NOW(),
-'$status'
-)";
-
+    $query = "INSERT INTO product (
+        product_img,
+        product_type,
+        product_name,
+        product_categories,
+        product_stock,
+        product_color,
+        product_price,
+        product_specification,
+        product_weight,
+        product_warranty,
+        product_rating,
+        insert_date,
+        lastUpdate_date,
+        status
+    ) VALUES (
+        '$product_img',
+        '$product_type',
+        '$product_name',
+        '$product_categories',
+        '$product_stock',
+        '$product_color',
+        '$product_price',
+        '$product_specification',
+        '$product_weight',
+        '$product_warranty',
+        '$product_rating',
+        NOW(),
+        NOW(),
+        '$status'
+    )";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -647,26 +673,31 @@ function updateProduct($data)
     $product_weight = htmlspecialchars($data["product_weight"]);
     $product_warranty = htmlspecialchars($data["product_warranty"]);
     $product_rating = htmlspecialchars($data["product_rating"]);
-    $status = $data["status"];
+    $status = htmlspecialchars($data["status"]); // Ensure the status is sanitized
+
+    // Debugging: Check the value of $status
+    var_dump($status); // Remove or comment out after debugging
 
     $query = "UPDATE product SET
-product_img = '$product_img',
-product_name = '$product_name',
-product_color = '$product_color',
-product_price = '$product_price',
-product_stock = '$product_stock',
-product_specification = '$product_specification',
-product_categories = '$product_categories',
-product_weight = '$product_weight',
-product_warranty = '$product_warranty',
-product_rating = '$product_rating',
-lastUpdate_date = NOW(),
-status = '$status'
-WHERE product_id = $product_id";
+        product_img = '$product_img',
+        product_name = '$product_name',
+        product_color = '$product_color',
+        product_price = '$product_price',
+        product_stock = '$product_stock',
+        product_specification = '$product_specification',
+        product_categories = '$product_categories',
+        product_weight = '$product_weight',
+        product_warranty = '$product_warranty',
+        product_rating = '$product_rating',
+        lastUpdate_date = NOW(),
+        status = '$status'
+        WHERE product_id = $product_id";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
+
+
 
 function deleteProduct($id)
 {
@@ -770,46 +801,19 @@ function registerAccount($data)
 
         // Insert Into Database
         $query = "INSERT INTO user
-(user_password, user_phone, user_email, insert_date, lastUpdate_date)
-VALUES (
-'$encrypted_password',
-'$user_phone',
-'$user_email',
-NOW(),
-NOW()
-)";
+                                (user_password, user_phone, user_email, insert_date, lastUpdate_date)
+                                VALUES (
+                                '$encrypted_password',
+                                '$user_phone',
+                                '$user_email',
+                                NOW(),
+                                NOW()
+                                )";
 
         // Execute Query
         mysqli_query($conn, $query);
 
         return mysqli_affected_rows($conn);
-    }
-}
-
-
-function insertlocations($data)
-{
-    global $conn;
-
-    // Pastikan session user_id tersedia dan tidak kosong
-    if (isset($_SESSION["user_id"]) && !empty($_SESSION["user_id"])) {
-        $user_id = $_SESSION["user_id"];
-
-        $username_location_receiver = mysqli_real_escape_string($conn, htmlspecialchars($data["user_username-location"]));
-        $phone_location_receiver = mysqli_real_escape_string($conn, htmlspecialchars($data["user_phone-location"]));
-        $location_receiver = mysqli_real_escape_string($conn, htmlspecialchars($data["user_location"]));
-
-        // Perhatikan penamaan kolom di dalam query
-        $query_location = "INSERT INTO user_locations (user_id, user_location, user_phone_location, user_username_location)
-VALUES ('$user_id', '$location_receiver', '$phone_location_receiver', '$username_location_receiver')";
-
-        // Execute Query untuk menambahkan lokasi
-        mysqli_query($conn, $query_location);
-
-        return mysqli_affected_rows($conn);
-    } else {
-        // Handle jika user_id tidak tersedia
-        return 0;
     }
 }
 
@@ -860,29 +864,6 @@ function updateProfileData($conn)
     }
 }
 
-function updatelokasi($data, $conn)
-{
-    // Periksa apakah pengguna sudah login
-    if (isset($_SESSION['user_id'])) {
-        // Ambil user_id dari session
-        $user_id = $_SESSION['user_id'];
-
-        // Lakukan query untuk mengupdate data pengguna
-        $username = $data['user_username-location'];
-        $id = $data["id"];
-        $phone = $data['user_phone-location'];
-        $location = $data['user_location'];
-
-        // Lakukan query untuk mengupdate lokasi pengguna
-        $query = "UPDATE user_locations SET user_username_location='$username', user_phone_location='$phone', user_location='$location' WHERE user_id = $user_id AND id = $id";
-        mysqli_query($conn, $query);
-        return mysqli_affected_rows($conn);
-    } else {
-        // Jika pengguna belum login, tampilkan pesan kesalahan
-        return array('error' => 'Login Terlebih Dahulu');
-    }
-}
-
 
 
 function deleteUser($id)
@@ -899,16 +880,69 @@ function deleteUser($id)
 
 // Location
 
-function deleteLocation($id)
-{
 
+// Function to insert locations
+function insertlocations($data)
+{
     global $conn;
 
+    if (isset($_SESSION["user_id"]) && !empty($_SESSION["user_id"])) {
+        $user_id = $_SESSION["user_id"];
+
+        $username_location_receiver = mysqli_real_escape_string($conn, htmlspecialchars($data["user_username-location"]));
+        $phone_location_receiver = mysqli_real_escape_string($conn, htmlspecialchars($data["user_phone-location"]));
+        $location_receiver = mysqli_real_escape_string($conn, htmlspecialchars($data["user_location"]));
+
+        $query_location = "INSERT INTO user_locations (user_id, user_location, user_phone_location, user_username_location , status)
+        VALUES ('$user_id', '$location_receiver', '$phone_location_receiver', '$username_location_receiver' , '0')";
+
+        // Execute Query for adding location
+        if (mysqli_query($conn, $query_location)) {
+            return mysqli_affected_rows($conn);
+        } else {
+            // Handle query failure
+            return "Error: " . mysqli_error($conn);
+        }
+    } else {
+        return 0; // Handle if user_id is not available
+    }
+}
+
+// Function to update location
+function updatelokasi($data)
+{
+    global $conn;
+
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $username = mysqli_real_escape_string($conn, htmlspecialchars($data['user_username-location']));
+        $id = (int) $data["id"];
+        $phone = mysqli_real_escape_string($conn, htmlspecialchars($data['user_phone-location']));
+        $location = mysqli_real_escape_string($conn, htmlspecialchars($data['user_location']));
+
+        $query = "UPDATE user_locations SET user_username_location='$username', user_phone_location='$phone', user_location='$location' WHERE user_id = $user_id AND id = $id";
+        if (mysqli_query($conn, $query)) {
+            return mysqli_affected_rows($conn);
+        } else {
+            return "Error: " . mysqli_error($conn);
+        }
+    } else {
+        return array('error' => 'Login Terlebih Dahulu');
+    }
+}
+
+// Function to delete location
+function deleteLocation($id)
+{
+    global $conn;
+    $id = (int) $id;
     $query = "DELETE FROM user_locations WHERE id = $id";
 
-    mysqli_query($conn, $query);
-
-    return mysqli_affected_rows($conn);
+    if (mysqli_query($conn, $query)) {
+        return mysqli_affected_rows($conn);
+    } else {
+        return "Error: " . mysqli_error($conn);
+    }
 }
 
 // Location End
@@ -981,51 +1015,48 @@ function updatePassword()
 
 
 
-function upload($input_name)
+function upload($inputName)
 {
-    if ($_FILES[$input_name]["size"] == 0) {
-        // Jika tidak ada file yang diupload, kembalikan nilai false
+    $fileName = $_FILES[$inputName]['name'];
+    $fileSize = $_FILES[$inputName]['size'];
+    $fileTmpName = $_FILES[$inputName]['tmp_name'];
+    $fileError = $_FILES[$inputName]['error'];
+
+    // Check if there is an error during the file upload
+    if ($fileError !== 0) {
+        echo "<script>alert('Error during file upload.');</script>";
         return false;
     }
 
-    // Lakukan proses upload gambar
-    $namaFile = $_FILES[$input_name]["name"];
-    $extensiGambarValid = ["jpg", "png", "jpeg", "svg"];
-    $extensiGambar = pathinfo($namaFile, PATHINFO_EXTENSION);
+    // Define the allowed file types
+    $allowedTypes = ['jpg', 'jpeg', 'png'];
+    $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
-    // Validasi ekstensi gambar
-    if (!in_array($extensiGambar, $extensiGambarValid)) {
-        echo "<script>
-    alert('Yang Anda Upload Bukan Gambar');
-</script>";
+    // Check if the file type is allowed
+    if (!in_array($fileExtension, $allowedTypes)) {
+        echo "<script>alert('File type not allowed.');</script>";
         return false;
     }
 
-    // Validasi ukuran gambar
-    $ukuran_file = $_FILES[$input_name]['size'];
-    $batas_ukuran = 60000000; // 60 MB
-
-    if ($ukuran_file > $batas_ukuran) {
-        echo "<script>
-    alert('Ukuran Gambar Terlalu Besar');
-</script>";
+    // Check the file size (max 2MB)
+    if ($fileSize > 2 * 1024 * 1024) {
+        echo "<script>alert('File size too large. Max 2MB allowed.');</script>";
         return false;
     }
 
-    // Generate nama file baru dan pindahkan file ke direktori yang ditentukan
-    $tmpName = $_FILES[$input_name]["tmp_name"];
-    $namaFilebaru = uniqid() . '.' . $extensiGambar;
-    $uploadPath = "img/" . $namaFilebaru;
+    // Generate a unique name for the file and move it to the upload directory
+    $newFileName = uniqid() . '.' . $fileExtension;
+    $uploadDirectory = 'img/';
+    $uploadPath = $uploadDirectory . $newFileName;
 
-    if (move_uploaded_file($tmpName, $uploadPath)) {
-        return $namaFilebaru;
+    if (move_uploaded_file($fileTmpName, $uploadPath)) {
+        return $newFileName;
     } else {
-        echo "<script>
-    alert('Gagal mengunggah gambar');
-</script>";
+        echo "<script>alert('Failed to upload file.');</script>";
         return false;
     }
 }
+
 
 function insertMultiImg($data)
 {
@@ -1124,6 +1155,39 @@ WHERE product_id = '$product_id'
 
 // Function Add to cart {
 
+// Define the newOrder function
+function newOrder($userId)
+{
+    global $conn;
+
+    // Setting default total_price to 0
+    $query = "INSERT INTO order_detail (user_id, total_price, order_status, insert_date) VALUES (?, 0, 0, NOW())";
+
+    try {
+        // Prepare the SQL statement
+        $stmt = mysqli_prepare($conn, $query);
+
+        // Bind the parameters
+        mysqli_stmt_bind_param($stmt, "i", $userId);
+
+        // Execute the statement
+        mysqli_stmt_execute($stmt);
+
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            $orderId = mysqli_insert_id($conn); // Get the ID of the newly created order
+            mysqli_stmt_close($stmt);
+            return $orderId;
+        } else {
+            mysqli_stmt_close($stmt);
+            return false;
+        }
+    } catch (mysqli_sql_exception $e) {
+        echo "SQL Error: " . $e->getMessage();
+        return false;
+    }
+}
+
+// Define the addtoCart function
 function addtoCart($data)
 {
     global $conn;
@@ -1131,27 +1195,94 @@ function addtoCart($data)
     $productid = htmlspecialchars($data['product_id']);
     $userid = htmlspecialchars($data['user_id']);
     $order_note = htmlspecialchars($data['order_note']);
+    $product_price = htmlspecialchars($data['product_price']);
     $order_quantity = htmlspecialchars($data['order_quantity']);
 
-    $query = "INSERT INTO order_cart (product_id ,user_id , order_note , order_quantity , insert_date, lastUpdate_date)
+    // Check if an order with status 0 exists for this user
+    $checkOrderQuery = "SELECT order_id FROM order_detail WHERE user_id = ? AND order_status = 0 LIMIT 1";
+    $stmt = mysqli_prepare($conn, $checkOrderQuery);
+    mysqli_stmt_bind_param($stmt, "i", $userid);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $orderId);
+    mysqli_stmt_fetch($stmt);
+    mysqli_stmt_close($stmt);
 
-VALUE (
-'$productid',
-'$userid',
-'$order_note',
-'$order_quantity',
-NOW(),
-NOW()
-) ";
+    // If no such order exists, create a new one
+    if (!$orderId) {
+        $orderId = newOrder($userid);
+        if (!$orderId) {
+            return false; // Failed to create a new order
+        }
+    }
+
+    // Insert the product into the order_cart table
+    $query = "INSERT INTO order_cart (product_id, user_id, order_note, product_price , order_quantity, cart_status, insert_date, lastUpdate_date, order_id)
+                VALUES (?, ?, ?, ? ,  ?, 0, NOW(), NOW(), ?)";
 
     try {
-        mysqli_query($conn, $query);
-        return mysqli_affected_rows($conn);
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "iisiii", $productid, $userid, $order_note, $product_price, $order_quantity, $orderId);
+        mysqli_stmt_execute($stmt);
+
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            mysqli_stmt_close($stmt);
+            return true;
+        } else {
+            mysqli_stmt_close($stmt);
+            return false;
+        }
     } catch (mysqli_sql_exception $e) {
-        // Print SQL error message for debugging
         echo "SQL Error: " . $e->getMessage();
         return false;
     }
 }
 
-// }
+// Define the insertCheckout function
+function insertCheckout($data)
+{
+    global $conn;
+
+    $userid = $_SESSION['user_id'];
+    $total_price = $data['total_price'];
+
+    // Update the order status to 1 (checked out)
+    $query = "UPDATE order_detail SET total_price = ?, order_status = 1 WHERE user_id = ? AND order_status = 0";
+
+    try {
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "di", $total_price, $userid);
+        mysqli_stmt_execute($stmt);
+
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            mysqli_stmt_close($stmt);
+            updateCartStatus($userid);
+            return true;
+        } else {
+            mysqli_stmt_close($stmt);
+            return false;
+        }
+    } catch (mysqli_sql_exception $e) {
+        echo "SQL Error: " . $e->getMessage();
+        return false;
+    }
+}
+
+function updateCartStatus($userid)
+{
+    global $conn;
+
+    // Update cart status to 1 (checked out) for the user
+    $query = "UPDATE order_cart SET cart_status = 1 WHERE user_id = ? AND cart_status = 0";
+
+    try {
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "i", $userid);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    } catch (mysqli_sql_exception $e) {
+        echo "SQL Error: " . $e->getMessage();
+    }
+}
+
+
+// Checkout Method End

@@ -168,7 +168,7 @@
                 SELECT * 
                 FROM order_cart 
                 INNER JOIN product ON order_cart.product_id = product.product_id 
-                WHERE order_cart.user_id = $user_id
+                WHERE order_cart.user_id = $user_id AND cart_status = 0
             ");
             ?> -->
             <?php if (!empty($showAddedItem)): ?>
@@ -192,7 +192,7 @@
                         <span id="qty" class="flex gap-2 product_data">
                           <button name="decrement"
                             class="flex items-center justify-center w-6 h-6 text-sm text-white rounded-sm decrement updateQty bg-blue-Neru lg:w-10 md:w-6 lg:h-10 md:h-6 lg:text-base">-</button>
-                          <input type="hidden" name="item_id" class="prodId" value="<?= $itemCart['order_id'] ?>">
+                          <input type="hidden" name="item_id" class="prodId" value="<?= $itemCart['cart_id'] ?>">
                           <input type="number" name="quantity"
                             class="quantity current-page lg:w-10 md:w-6 w-6 lg:h-10 md:h-6 h-6 text-center py-1 bg-white xl:text-2xl text-sm outline-none border-blue-Neru border-[1px]"
                             min="1" max="5" value="<?= htmlspecialchars($itemCart['order_quantity']) ?>" />
@@ -211,7 +211,7 @@
                         </h6>
                       </span>
                       <a onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
-                        href="hapus.php?order_id=<?= htmlspecialchars($itemCart['order_id']) ?>"
+                        href="hapus.php?cart_id=<?= htmlspecialchars($itemCart['cart_id']) ?>"
                         class="items-center hidden gap-2 text-xs text-red-500 md:gap-4 lg:text-base md:text-sm lg:flex">
                         Delete
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 lg:w-6" viewBox="0 0 24 24" stroke-width="2"
@@ -347,9 +347,9 @@
                           <h6 class="text-sm lg:text-base">Total Belanja</h6>
                           <h6 class="text-sm totalBelanja lg:text-base">Rp. -</h6>
                         </span>
-                        <a id="checkoutToggle"
+                        <a href="payment-method.php"
                           class="w-full px-2 py-2 text-sm font-semibold text-center text-white rounded-md cursor-pointer bg-blue-Neru lg:p-2 lg:text-base triggerBox"
-                          type="button">Checkout Now </a>
+                          type="button">Payment Method </a>
                       </div>
                     <?php else: ?>
                       <div class="flex flex-col gap-4 wrapper">
@@ -365,9 +365,9 @@
                           <h6 class="text-sm lg:text-base">Total Belanja</h6>
                           <h6 class="text-sm lg:text-base">Rp. -</h6>
                         </span>
-                        <a id="checkoutToggle"
+                        <a href="payment-method.php"
                           class="px-2 py-2 text-sm font-semibold text-center text-white rounded-md cursor-pointer bg-blue-Neru lg:p-2 lg:text-base triggerBox"
-                          type="button">Checkout Now </a>
+                          type="button">Payment Method </a>
                       </div>
                     <?php endif; ?>
                   </div>
@@ -377,86 +377,7 @@
           </div>
         </div>
         <?php include "layout/modal/ModalLocationsSelector.php" ?>
-        <!-- Checkout Selection Payment -->
-        <div class="fixed inset-0 flex items-center justify-center text-black bg-black bg-opacity-0 text-start -z-20">
-          <div id="PaymentBox"
-            class="alamat-wrapper transition-all ease-in-out duration-300 opacity-0 bg-white lg:w-[30%] md:w-[70%] w-[90%] h-fit rounded-lg">
-            <div class="flex justify-between p-4">
-              <h6>Pembayaran</h6>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 cursor-pointer closeBox text-blue-Neru"
-                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M18 6l-12 12"></path>
-                <path d="M6 6l12 12"></path>
-              </svg>
-            </div>
-            <hr />
-            <div class="flex flex-col gap-3 p-4">
-              <div class="flex items-center justify-between">
-                <h6 class="text-xs font-semibold capitalize md:text-base">Metode Pembayaran</h6>
-              </div>
-              <div class="flex flex-col gap-4">
-                <span class="flex justify-between">
-                  <label for="BCA" name="BCA" class="">
-                    <img src="img/BCA.png" class="md:w-[70%] w-[50%]" alt="" />
-                  </label>
-                  <input type="radio" id="BCA" name="paymentMethod" onchange="handleRadioChange(this)" />
-                </span>
-                <span class="flex justify-between">
-                  <label for="MANDIRI" name="MANDIRI" class="">
-                    <img src="img/MANDIRI.png" class="md:w-[70%] w-[50%]" alt="" />
-                  </label>
-                  <input type="radio" id="MANDIRI" name="paymentMethod" onchange="handleRadioChange(this)" />
-                </span>
-              </div>
-            </div>
-            <hr />
-            <div class="flex flex-col gap-3 p-4">
-              <div class="flex items-center justify-between">
-                <h6 class="text-xs font-semibold capitalize md:text-base">Ringkasan Belanja</h6>
-              </div>
-              <div class="flex flex-col gap-4 body">
-                <?php if (!empty($showAddedItem)): ?>
-                  <div class="flex flex-col gap-4 wrapper">
-                    <div class="xl:h-[300px] h-[150px] overflow-y-auto flex flex-col gap-3 cart-container">
-                      <!-- Cart items will be dynamically loaded here -->
-                    </div>
-                    <hr>
-                    <span class="flex justify-between">
-                      <h6 class="text-sm lg:text-base">Ongkir</h6>
-                      <h6 class="text-sm lg:text-base">Rp -</h6>
-                    </span>
-                    <span class="flex justify-between">
-                      <h6 class="text-sm lg:text-base">Total Belanja</h6>
-                      <h6 class="text-sm totalBelanja lg:text-base">Rp. -</h6>
-                    </span>
-                  </div>
-                <?php else: ?>
-                  <div class="flex flex-col gap-4 wrapper">
-                    <div class="flex flex-col justify-center h-10 gap-3 overflow-y-auto cart-container">
-                      <!-- Cart items will be dynamically loaded here -->
-                    </div>
-                    <hr>
-                    <span class="flex justify-between">
-                      <h6 class="text-sm lg:text-base">Ongkir</h6>
-                      <h6 class="text-sm lg:text-base">Rp.-</h6>
-                    </span>
-                    <span class="flex justify-between">
-                      <h6 class="text-sm lg:text-base">Total Belanja</h6>
-                      <h6 class="text-sm lg:text-base">Rp. -</h6>
-                    </span>
 
-                  </div>
-                <?php endif; ?>
-                <hr />
-                <div class="flex items-center justify-end">
-                  <a href="paymentWaitingList.php"
-                    class="w-full py-2 text-xs font-semibold text-center text-white capitalize rounded-lg rounded-t-none cursor-pointer md:text-sm px-9 bg-blue-Neru closeBox animate-pulse">Bayar</a>
-                </div>
-              </div>
-            </div>
-            <!-- Checkout Selection Payment End -->
     </section>
     <?php include "layout/floatingButton.php" ?>
   </main>
@@ -533,6 +454,7 @@
     }
   }
 </script>
+
 <script>
   const TogglelocationsBoxSelector = document.getElementById("ToggleLocationsBoxSelector")
   const locationsBoxSelector = document.getElementById("locationSelectorBox")
@@ -557,7 +479,7 @@
       url: 'update_data_cart.php',
       method: "POST",
       data: {
-        'order_id': prod_id,
+        'cart_id': prod_id,
         'order_quantity': qty
       },
       success: function (response) {

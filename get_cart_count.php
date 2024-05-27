@@ -9,7 +9,7 @@ function countItemsInOrderCart()
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
 
-        $query = "SELECT COUNT(*) as item_count FROM order_cart WHERE user_id = ?";
+        $query = "SELECT COUNT(*) as item_count FROM order_cart WHERE user_id = ? AND cart_status = 0";
         if ($stmt = mysqli_prepare($conn, $query)) {
             mysqli_stmt_bind_param($stmt, "i", $user_id);
             mysqli_stmt_execute($stmt);

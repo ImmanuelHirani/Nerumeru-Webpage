@@ -14,7 +14,9 @@ $Users = query("SELECT * FROM user_locations INNER JOIN user ON user_locations.u
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/output.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
@@ -25,31 +27,37 @@ $Users = query("SELECT * FROM user_locations INNER JOIN user ON user_locations.u
 
 <body>
     <main class="my-0">
-        <section class="admin relative h-screen overflow-hidden my-0">
+        <section class="relative h-screen my-0 overflow-hidden admin">
             <div class="flex items-start justify-between">
                 <!-- Side Bar -->
-                <?php include("layout/sidebar.admin.php"); ?>
+                <?php include ("layout/sidebar.admin.php"); ?>
                 <!-- Side Bar end -->
                 <!-- Main Menu -->
-                <div class="flex flex-col gap-4 container">
+                <div class="container flex flex-col gap-4">
                     <?php include "layout/header-admin.php"; ?>
-                    <div class="max-h-screen w-full overflow-y-auto">
-                        <div id="UserData" class="container BoxTableData bg-white rounded-lg shadow-md 3xl:h-fit 2xl:h-fit overflow-y-auto mt-4">
+                    <div class="w-full max-h-screen overflow-y-auto ">
+                        <div id="UserData"
+                            class="container mt-4 overflow-y-auto bg-white rounded-lg shadow-md BoxTableData 3xl:h-fit 2xl:h-fit">
                             <a href="Admin-Customer.php" class="flex items-center gap-3 mb-3">
-                                <Span class="bg-blue-Neru w-10 h-10  flex items-center justify-center rounded-full text-white text-xl">
+                                <Span
+                                    class="flex items-center justify-center w-10 h-10 text-xl text-white rounded-full bg-blue-Neru">
                                     < </Span>
                             </a>
-                            <table id="myTable2" class="myTableDisplay text-basepy-6 display table hover order-column row-border stripe">
+                            <table id="myTable2"
+                                class="table py-6 text-base myTableDisplay display hover order-column row-border stripe">
                                 <thead>
-                                    <tr class="bg-blue-Neru text-white">
+                                    <tr class="text-white bg-blue-Neru">
                                         <th class="border-[1px] border-black-neru border-opacity-30">ID</th>
-                                        <th class="border-[1px] border-black-neru border-opacity-30">Username Reciver</th>
-                                        <th class="border-[1px] border-black-neru border-opacity-30">Phone Number Reciver</th>
-                                        <th class="border-[1px] border-black-neru border-opacity-30">Locations Reciver</th>
+                                        <th class="border-[1px] border-black-neru border-opacity-30">Username Reciver
+                                        </th>
+                                        <th class="border-[1px] border-black-neru border-opacity-30">Phone Number
+                                            Reciver</th>
+                                        <th class="border-[1px] border-black-neru border-opacity-30">Locations Reciver
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($Users as $user) : ?>
+                                    <?php foreach ($Users as $user): ?>
                                         <tr class="text-start">
                                             <td class="w-14"><?= $user["user_id"] ?></td>
                                             <td class="w-72"><?= $user["user_username_location"] ?></td>

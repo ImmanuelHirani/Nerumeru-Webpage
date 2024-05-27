@@ -8,7 +8,7 @@ $sql = "
     SELECT * 
     FROM order_cart 
     INNER JOIN product ON order_cart.product_id = product.product_id 
-    WHERE order_cart.user_id = $user_id
+    WHERE order_cart.user_id = $user_id AND cart_status = 0
 ";
 
 $result = mysqli_query($conn, $sql);
